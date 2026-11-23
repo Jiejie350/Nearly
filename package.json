@@ -1,0 +1,11 @@
+{
+  "name": "nearly",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nearly - a cozy little space for two",
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0"
+  }
+}

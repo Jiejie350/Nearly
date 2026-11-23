@@ -1,0 +1,79 @@
+<!-- ===== 1) Paste these BEFORE <application> in android/app/src/main/AndroidManifest.xml ===== -->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+<!-- Only needed for the optional "share my location" feature -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+<!-- ===== 2) Paste these INSIDE <application> ===== -->
+
+<!-- Original classic widget (unchanged) -->
+<receiver android:name=".NearlyWidgetProvider" android:exported="true">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+    </intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_widget_info"/>
+</receiver>
+
+<!-- New widget types (each shows up separately in the launcher's widget picker) -->
+<receiver android:name=".NearlyPhotoWidget" android:exported="true" android:label="@string/nearly_label_photo">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_photo_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyLoveWidget" android:exported="true" android:label="@string/nearly_label_love">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_love_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyRelationshipWidget" android:exported="true" android:label="@string/nearly_label_relationship">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_relationship_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyStatusWidget" android:exported="true" android:label="@string/nearly_label_status">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_status_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyLocationWidget" android:exported="true" android:label="@string/nearly_label_location">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_location_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyMoodWidget" android:exported="true" android:label="@string/nearly_label_mood">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_mood_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyCountdownWidget" android:exported="true" android:label="@string/nearly_label_countdown">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_countdown_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyNotesWidget" android:exported="true" android:label="@string/nearly_label_notes">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_notes_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyInteractiveWidget" android:exported="true" android:label="@string/nearly_label_interactive">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_interactive_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyGameWidget" android:exported="true" android:label="@string/nearly_label_game">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_game_widget_info"/>
+</receiver>
+<receiver android:name=".NearlyCandleWidget" android:exported="true" android:label="@string/nearly_label_candle">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+    <meta-data android:name="android.appwidget.provider" android:resource="@xml/nearly_candle_widget_info"/>
+</receiver>
+
+<!-- Widget button taps (not exported: only our own PendingIntents can reach it) -->
+<receiver android:name=".NearlyActionReceiver" android:exported="false"/>
+
+<!-- Background sync job -->
+<service android:name=".NearlySyncService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false"/>
+
+<!-- Settings screen / dialogs -->
+<activity android:name=".NearlyConfigActivity" android:exported="true"
+    android:theme="@android:style/Theme.Material.Light.NoActionBar">
+    <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/></intent-filter>
+</activity>
+<activity android:name=".QuickNoteActivity" android:exported="false" android:excludeFromRecents="true"
+    android:theme="@android:style/Theme.Material.Light.Dialog"/>
+<activity android:name=".MoodPickerActivity" android:exported="false" android:excludeFromRecents="true"
+    android:theme="@android:style/Theme.Material.Light.Dialog"/>

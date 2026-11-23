@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nearly_label_photo">Nearly · Photos</string>
+    <string name="nearly_label_love">Nearly · Love</string>
+    <string name="nearly_label_relationship">Nearly · Together</string>
+    <string name="nearly_label_status">Nearly · Partner status</string>
+    <string name="nearly_label_location">Nearly · Location</string>
+    <string name="nearly_label_mood">Nearly · Mood</string>
+    <string name="nearly_label_countdown">Nearly · Countdown</string>
+    <string name="nearly_label_notes">Nearly · Notes</string>
+    <string name="nearly_label_interactive">Nearly · Quick actions</string>
+    <string name="nearly_label_game">Nearly · Couple games</string>
+    <string name="nearly_label_candle">Nearly · Candle</string>
+
+    <string name="nearly_desc_photo">Partner, couple and shared gallery photos with frames, captions and date stamps.</string>
+    <string name="nearly_desc_love">I love you, daily messages, kisses, hugs — one tap to send.</string>
+    <string name="nearly_desc_relationship">Days together, anniversaries, monthly milestones and timeline.</string>
+    <string name="nearly_desc_status">Your partner\'s online status, mood, activity and battery.</string>
+    <string name="nearly_desc_location">Shared location, distance and travel estimate with privacy controls.</string>
+    <string name="nearly_desc_mood">Pick your mood, see theirs, mood history and calendar.</string>
+    <string name="nearly_desc_countdown">Anniversary, birthday, meetup, vacation or any custom date.</string>
+    <string name="nearly_desc_notes">Love notes, sticky notes, private messages, reminders and handwritten notes.</string>
+    <string name="nearly_desc_interactive">Hearts, kisses, hugs, mood, notes and tasks from your home screen.</string>
+    <string name="nearly_desc_game">Tic-Tac-Toe, daily question, never have I ever and challenges.</string>
+    <string name="nearly_desc_candle">Light a candle together and see when you\'re both connected.</string>
+</resources>

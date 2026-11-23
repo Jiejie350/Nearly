@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nly_bg_start">#3A2132</color>
+    <color name="nly_bg_end">#2C2442</color>
+    <color name="nly_stroke">#4A2E41</color>
+    <color name="nly_ink">#FFE9F3</color>
+    <color name="nly_mu">#CBA3B8</color>
+    <color name="nly_acc">#FF7AA8</color>
+    <color name="nly_acc_dark">#E5648F</color>
+</resources>

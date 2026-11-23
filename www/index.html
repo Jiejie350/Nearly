@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nearly</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff5f9;--sf:#fff;--ink:#4a2a3c;--mu:#9a7c8c;--ln:#f6d9e5;--acc:#ff7aa8;--on:#4a1a2e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#21141d;--sf:#2e1c29;--ink:#ffe9f3;--mu:#cba3b8;--ln:#4a2e41;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#21141d;--sf:#2e1c29;--ink:#ffe9f3;--mu:#cba3b8;--ln:#4a2e41;color-scheme:dark}
+[data-acc="lav"]{--acc:#a794ff}[data-acc="mint"]{--acc:#4fd6a8}[data-acc="peach"]{--acc:#ff9e66}
+*{box-sizing:border-box;margin:0}
+html{height:100%}
+body{background:var(--bg);color:var(--ink);font:600 16px/1.5 "Nunito",system-ui,sans-serif;min-height:100%;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;padding:22px 18px 110px}
+h1,h2,h3,.f{font-family:"Fredoka",system-ui,sans-serif;font-weight:500}
+h2{font-size:26px;margin:4px 0 14px}
+h3{font-size:18px}
+.mu{color:var(--mu);font-weight:400}
+.card{background:var(--sf);border:2px solid var(--ln);border-radius:24px;box-shadow:0 4px 0 var(--ln);padding:16px}
+.tint{background:color-mix(in srgb,var(--t,var(--acc)) 24%,var(--sf));border-color:color-mix(in srgb,var(--t,var(--acc)) 45%,var(--sf));box-shadow:0 4px 0 color-mix(in srgb,var(--t,var(--acc)) 45%,var(--sf))}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.span{grid-column:1/3}
+.big{font:600 46px/1 "Fredoka",sans-serif}
+.lbl{font-size:14px;color:var(--mu);font-weight:600}
+.top{text-align:center;margin-bottom:4px}
+.hb{display:block;margin:6px auto 0;width:150px;border:0;background:none;color:var(--acc);cursor:pointer}
+.hb svg{width:100%;display:block}
+.hb.pop svg{animation:pop .6s ease}
+@keyframes pop{35%{transform:scale(1.2) rotate(-4deg)}70%{transform:scale(.96)}}
+.btn{border:0;border-radius:99px;padding:12px 22px;background:var(--acc);color:var(--on);font:500 16px "Fredoka",sans-serif;cursor:pointer;box-shadow:0 3px 0 color-mix(in srgb,var(--acc) 60%,#000)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.g{background:var(--sf);color:var(--ink);border:2px solid var(--ln);box-shadow:0 3px 0 var(--ln)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:99px;padding:8px 15px;font:600 15px "Nunito",sans-serif;cursor:pointer}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--on)}
+input,textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--sf);border:2px solid var(--ln);border-radius:16px;padding:11px 14px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--acc)}
+label{display:block;font-size:14px;color:var(--mu);margin:14px 0 5px}
+.row{display:flex;gap:10px;align-items:center}
+.row>*{flex:1}
+.opt{display:block;width:100%;text-align:left;margin-top:10px;padding:15px;border:2px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:18px;font:600 16px "Nunito",sans-serif;cursor:pointer}
+.opt.sel{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 22%,var(--sf))}
+.menu{display:flex;gap:12px;align-items:center;width:100%;text-align:left;font:inherit;color:var(--ink);cursor:pointer;margin-top:12px}
+.menu .em{font-size:30px}
+.q{font:500 24px/1.35 "Fredoka",sans-serif;min-height:150px;display:flex;align-items:center}
+.sec{margin-top:26px}
+.sec>h3{margin-bottom:10px}
+.h7{display:grid;grid-template-columns:34px repeat(7,1fr);gap:6px;align-items:center;text-align:center;font-size:20px}
+.h7 small{font-size:12px;color:var(--mu)}
+.log{padding:11px 0;border-bottom:2px dashed var(--ln);font-weight:400}
+.tog{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:2px dashed var(--ln)}
+.sw{display:flex;gap:12px}
+.sw button{width:42px;height:42px;border-radius:50%;border:3px solid var(--sf);box-shadow:0 0 0 2px var(--ln);cursor:pointer}
+.sw button.on{box-shadow:0 0 0 3px var(--ink)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:var(--bg);border-top:2px solid var(--ln);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav div{width:100%;max-width:440px;display:flex}
+nav button{flex:1;border:0;background:none;padding:9px 0 10px;font:500 12px "Fredoka",sans-serif;color:var(--mu);cursor:pointer}
+nav button span{display:block;font-size:22px;filter:grayscale(1);opacity:.6}
+nav button.on{color:var(--ink)}nav button.on span{filter:none;opacity:1}
+.setup{padding-top:40px;text-align:center}
+.setup h1{font-size:44px}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.hb.pop svg{animation:none}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script src="nearly-widgets.js"></script>
+<script>
+var S={me:"",you:"",date:"",hearts:0,mood:[],tz:"",meet:"",meetL:"",wid:{days:1,meet:1,time:1,mood:1,hearts:1,q:1},acc:"pink",sc:{wyr:[0,0],quiz:[0,0]}};
+var tab="home",G=null,deck="deep",card=0,dare=-1,who="me",ms=null,play="";
+var NW=window.NearlyWidgets||{configure:function(){},sendHeart:function(){},setStatus:function(){},setStartDate:function(){},pinWidget:function(){}};
+function syncW(){try{NW.configure({name:S.me,partnerName:S.you,hearts:S.hearts});NW.setStartDate(S.date)}catch(e){}}
+function load(){try{var r=localStorage.getItem("nearly");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}}
+function save(){try{localStorage.setItem("nearly",JSON.stringify(S))}catch(e){}}
+var EM=[["😍","Loved"],["😊","Happy"],["😌","Calm"],["🥺","Missing you"],["😴","Tired"],["😤","Stressed"]];
+var DK={deep:["What do you think we’ll laugh about when we’re old?","What is one fear you feel safer sharing with me?","When do you feel closest to me?","What did you need most as a kid that you can give yourself now?","What is a dream you haven’t told many people?","What do I do that makes you feel understood?","What would you like us to never stop doing?","What is one thing you’re healing from, and how can I help?"],
+fun:["If we swapped lives for a day, what would you do first?","What would our couple reality show be called?","Which cartoon duo are we?","What’s the silliest thing we’ve ever argued about?","If we opened a café, what is on the menu?","What nickname of mine is your favorite?","What superpower would we pick as a pair?","What’s our most chaotic memory together?"],
+spicy:["What is something I do that instantly gets your attention?","Describe our perfect slow night in three words.","Where is the most romantic place you’d kiss me?","What do you wish I would flirt with you about more?","What outfit of mine do you secretly love?","What is your favorite way to be held?","Which memory of us makes you blush?","What would you whisper to me right now?"]};
+var DC={deep:"#a794ff",fun:"#ffb86b",spicy:"#ff6f91"};
+var WYR=[["Would you rather…","Cozy night in","Spontaneous night out"],["Would you rather…","Breakfast in bed","Midnight snacks together"],["Would you rather…","Beach trip","Cabin in the woods"],["Would you rather…","Love letters","Surprise gifts"],["Would you rather…","Dance in the kitchen","Road trip with loud music"],["Would you rather…","Movie marathon","Game night"],["Would you rather…","Matching pajamas","Matching bracelets"],["Would you rather…","Live by the sea","Live in a tiny city flat"]];
+var QZ=[["My comfort food is…","Pizza","Noodles","Sweets","Rice"],["My love language is…","Words","Quality time","Touch","Gifts"],["I recharge by…","Sleeping","Music","Being outside","Being with you"],["My dream trip is…","Japan","Paris","A beach","Mountains"],["I get upset when…","I’m hungry","I feel ignored","I’m tired","Plans change"],["My ideal date is…","A picnic","The cinema","A nice dinner","Staying in"]];
+var DARES=["Give your partner a 30-second shoulder rub","Say three things you love about them, no repeats","Draw each other in 20 seconds","Slow dance to one song right now","Send them a voice note saying goodnight","Feed each other a snack with your eyes closed","Write a tiny poem about them","Do your best impression of them","Plan the next date out loud in one minute","Hold eye contact for 20 seconds without laughing"];
+var TZS=(typeof Intl!=="undefined"&&Intl.supportedValuesOf)?Intl.supportedValuesOf("timeZone"):["UTC","Asia/Manila","Asia/Tokyo","Europe/London","America/New_York","America/Los_Angeles","Australia/Sydney"];
+function dk(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function dayN(){var s=new Date(S.date+"T00:00:00"),n=new Date();n.setHours(0,0,0,0);return Math.max(0,Math.round((n-s)/864e5))+1}
+function meetLeft(){if(!S.meet)return null;var m=new Date(S.meet+"T00:00:00"),n=new Date();n.setHours(0,0,0,0);return Math.round((m-n)/864e5)}
+function myTz(){return Intl.DateTimeFormat().resolvedOptions().timeZone}
+function clk(tz){tz=tz||myTz();var o={timeZone:tz,hour:"numeric",minute:"2-digit"},t=new Date().toLocaleTimeString([],o),h=parseInt(new Date().toLocaleTimeString("en-GB",{timeZone:tz,hour:"2-digit",hour12:false}),10);return{t:t,aw:h>=7&&h<23}}
+function latest(w,k){for(var i=S.mood.length-1;i>=0;i--){var e=S.mood[i];if(e.w===w&&e.d===k)return e}return null}
+var HEART='<svg viewBox="0 0 120 108"><path d="M60 100C20 72 6 50 6 32 6 17 18 8 31 8c12 0 22 6 29 17C67 14 77 8 89 8c13 0 25 9 25 24 0 18-14 40-54 68z" fill="currentColor"/><circle cx="44" cy="46" r="5" fill="#4a1a2e"/><circle cx="76" cy="46" r="5" fill="#4a1a2e"/><path d="M50 59q10 9 20 0" stroke="#4a1a2e" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="32" cy="57" r="6" fill="#fff" opacity=".55"/><circle cx="88" cy="57" r="6" fill="#fff" opacity=".55"/></svg>';
+function home(){
+  var k=dk(new Date()),w=S.wid,h='<div class="top"><div class="f" style="font-size:22px">'+esc(S.me)+' &amp; '+esc(S.you)+'</div></div>';
+  h+='<button class="hb" data-a="heart" id="hb" aria-label="Send a heart">'+HEART+'</button><div class="lbl" id="hh" style="text-align:center;min-height:24px">'+(S.hearts?S.hearts+" hearts sent":"Tap me when you’re thinking of them")+'</div><div class="grid">';
+  if(w.days)h+='<div class="card tint span" style="--t:#ff7aa8"><div class="lbl">Together for</div><div class="big">'+dayN()+' days</div></div>';
+  if(w.meet){var l=meetLeft();h+='<div class="card tint" style="--t:#ffb86b"><div class="lbl">'+(S.meetL?esc(S.meetL):"Next time together")+'</div>'+(l===null?'<div class="lbl" style="margin-top:6px">Set a date in Us</div>':l>0?'<div class="big">'+l+'</div><div class="lbl">days to go</div>':'<div class="big">Today</div>')+'</div>'}
+  if(w.time){var c=clk(S.tz||myTz());h+='<div class="card tint" style="--t:#a794ff"><div class="lbl">Their time</div><div class="f" style="font-size:26px">'+c.t+'</div><div class="lbl">'+(c.aw?"Awake ☀️":"Sleeping 🌙")+'</div></div>'}
+  if(w.mood){var a=latest("me",k),b=latest("you",k);h+='<div class="card tint" style="--t:#4fd6a8"><div class="lbl">Moods today</div><div style="font-size:30px;margin-top:4px">'+(a?EM[a.m][0]:"·")+" "+(b?EM[b.m][0]:"·")+'</div></div>'}
+  if(w.hearts)h+='<div class="card tint" style="--t:#ff6f91"><div class="lbl">Hearts</div><div class="big">'+S.hearts+'</div></div>';
+  if(w.q)h+='<button class="card tint span menu" data-a="tab" data-v="talk" style="--t:#a794ff"><div><div class="lbl">Today’s question</div><div style="margin-top:4px">'+DK.deep[Math.floor(Date.now()/864e5)%DK.deep.length]+'</div></div></button>';
+  return h+'</div>';
+}
+function gameView(){
+  var g=G,d=g.mode==="wyr"?WYR:QZ,q=d[g.i%d.length],h='<button class="btn g" data-a="play" data-v="">← Games</button><div class="sec">';
+  var names={me:S.me,you:S.you};
+  if(g.mode==="dare"){return h+'<h2>Dare deck</h2><div class="card tint" style="--t:#ffb86b"><div class="q">'+(dare<0?"Draw a card, take the dare together.":DARES[dare])+'</div></div><button class="btn" style="margin-top:16px" data-a="dare">Draw a dare</button></div>'}
+  var sc=S.sc[g.mode];
+  h+='<div class="lbl">Matches '+sc[0]+' / '+sc[1]+'</div><h2 style="margin-top:2px">'+q[0]+'</h2>';
+  if(g.step<2){
+    h+='<div class="lbl">'+(g.step===0?esc(S.me)+", pick "+(g.mode==="quiz"?"your real answer":"one"):esc(S.you)+", your turn "+(g.mode==="quiz"?"– guess what "+esc(S.me)+" picked":"(no peeking!)"))+'</div>';
+    for(var i=1;i<q.length;i++)h+='<button class="opt" data-a="pick" data-v="'+i+'">'+q[i]+'</button>';
+  }else{
+    var m=g.a===g.b;h+='<div class="card tint" style="--t:'+(m?"#4fd6a8":"#ffb86b")+'"><div class="f" style="font-size:24px">'+(m?"It’s a match! 💞":"Different, and that’s okay 💗")+'</div><p style="margin-top:8px">'+esc(S.me)+': '+q[g.a]+'<br>'+esc(S.you)+': '+q[g.b]+'</p></div><button class="btn" style="margin-top:16px" data-a="next">Next one</button>';
+  }
+  return h+'</div>';
+}
+function playV(){
+  if(G)return gameView();
+  var h='<h2>Play together</h2>';
+  [["wyr","💭","Would you rather","Pick, hand over the phone, compare"],["quiz","🧠","How well do you know me","One answers, the other guesses"],["dare","🎲","Dare deck","Small, sweet challenges"]].forEach(function(x){h+='<button class="card menu" data-a="play" data-v="'+x[0]+'"><span class="em">'+x[1]+'</span><span><span class="f" style="font-size:19px">'+x[2]+'</span><br><span class="mu">'+x[3]+'</span></span></button>'});
+  return h;
+}
+function talk(){
+  var h='<h2>Talk</h2><div class="chips">';
+  ["deep","fun","spicy"].forEach(function(d){h+='<button class="chip'+(deck===d?" on":"")+'" data-a="deck" data-v="'+d+'">'+d[0].toUpperCase()+d.slice(1)+'</button>'});
+  return h+'</div><div class="card tint" style="--t:'+DC[deck]+';margin-top:18px"><div class="q">'+DK[deck][card%DK[deck].length]+'</div></div><button class="btn" style="margin-top:16px" data-a="card">Next card</button><p class="mu" style="margin-top:14px">Take turns. Answer slowly, listen fully.</p>';
+}
+function moodV(){
+  var k=dk(new Date()),h='<h2>Mood</h2><div class="chips" style="margin-bottom:14px">';
+  [["me",S.me],["you",S.you]].forEach(function(x){h+='<button class="chip'+(who===x[0]?" on":"")+'" data-a="who" data-v="'+x[0]+'">'+esc(x[1])+'</button>'});
+  h+='</div><div class="chips">'+EM.map(function(e,i){return'<button class="chip'+(ms===i?" on":"")+'" data-a="ms" data-v="'+i+'">'+e[0]+' '+e[1]+'</button>'}).join("")+'</div><label for="mn">Add a note (optional)</label><input id="mn" placeholder="What’s behind it?"><button class="btn" style="margin-top:14px" data-a="logm">Save mood</button>';
+  h+='<div class="sec"><h3>This week</h3><div class="card" style="margin-top:10px"><div class="h7"><span></span>';
+  var days=[];for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);days.push(d)}
+  days.forEach(function(d){h+='<small>'+d.toLocaleDateString(undefined,{weekday:"narrow"})+'</small>'});
+  [["me",S.me],["you",S.you]].forEach(function(x){h+='<small>'+esc(x[1].slice(0,3))+'</small>';days.forEach(function(d){var e=latest(x[0],dk(d));h+='<span>'+(e?EM[e.m][0]:"·")+'</span>'})});
+  h+='</div></div></div><div class="sec"><h3>History</h3>';
+  var L=S.mood.slice(-8).reverse();
+  h+=L.length?L.map(function(e){return'<div class="log">'+EM[e.m][0]+' <b>'+esc(e.w==="me"?S.me:S.you)+'</b> felt '+EM[e.m][1].toLowerCase()+(e.n?' – '+esc(e.n):'')+'<br><span class="lbl">'+new Date(e.t).toLocaleDateString(undefined,{month:"short",day:"numeric"})+'</span></div>'}).join(""):'<p class="mu">Your moods will show up here.</p>';
+  return h+'</div>';
+}
+function us(){
+  var h='<h2>Us</h2><div class="card tint" style="--t:#a794ff"><h3>Long distance</h3><label for="tz">Their time zone</label><select id="tz" data-s="tz">'+TZS.map(function(z){return'<option'+((S.tz||myTz())===z?" selected":"")+'>'+z+'</option>'}).join("")+'</select>';
+  var a=clk(),b=clk(S.tz||myTz());
+  h+='<div class="row" style="margin-top:12px"><div><div class="lbl">You</div><div class="f" style="font-size:24px">'+a.t+'</div></div><div><div class="lbl">Them</div><div class="f" style="font-size:24px">'+b.t+' '+(b.aw?"☀️":"🌙")+'</div></div></div>';
+  h+='<label for="ml">Counting down to</label><input id="ml" data-s="meetL" value="'+esc(S.meetL)+'" placeholder="Our next trip"><label for="md">Date we meet</label><input id="md" type="date" data-s="meet" value="'+S.meet+'"></div>';
+  h+='<div class="sec"><h3>Your control panel</h3><div class="card" style="margin-top:10px"><div class="lbl">Home widgets</div>';
+  [["days","Days together"],["meet","Countdown"],["time","Their time"],["mood","Moods today"],["hearts","Hearts"],["q","Today’s question"]].forEach(function(x){h+='<div class="tog"><span>'+x[1]+'</span><button class="chip'+(S.wid[x[0]]?" on":"")+'" data-a="wid" data-v="'+x[0]+'">'+(S.wid[x[0]]?"On":"Off")+'</button></div>'});
+  h+='<div class="lbl" style="margin:16px 0 10px">Color</div><div class="sw">';
+  [["pink","#ff7aa8"],["lav","#a794ff"],["mint","#4fd6a8"],["peach","#ff9e66"]].forEach(function(c){h+='<button aria-label="'+c[0]+'" class="'+(S.acc===c[0]?"on":"")+'" style="background:'+c[1]+'" data-a="acc" data-v="'+c[0]+'"></button>'});
+  h+='</div></div></div>';
+  if(window.NearlyWidgets&&window.NearlyWidgets.available){h+='<div class="sec"><h3>Home-screen widgets</h3><div class="card" style="margin-top:10px"><div class="chips">'+[["love","💗 Love"],["relationship","📅 Together"],["countdown","⏳ Countdown"],["mood","🌈 Mood"],["photo","📷 Photos"],["notes","📝 Notes"],["candle","🕯️ Candle"],["game","🎮 Games"]].map(function(x){return'<button class="chip" data-a="pin" data-v="'+x[0]+'">'+x[1]+'</button>'}).join("")+'</div><p class="mu" style="margin-top:10px">Tap to add one to your home screen.</p></div></div>';}
+  h+='<div class="sec"><div class="card"><label for="nm">Names</label><div class="row"><input id="nm" value="'+esc(S.me)+'"><input id="ny" value="'+esc(S.you)+'"></div><label for="nd">Together since</label><input id="nd" type="date" value="'+S.date+'"><button class="btn" style="margin-top:14px" data-a="prof">Save</button></div><button class="btn g" style="margin-top:16px" data-a="reset">Start over</button></div>';
+  return h;
+}
+function render(){
+  var a=document.getElementById("app");document.documentElement.dataset.acc=S.acc;
+  if(!S.date){a.innerHTML='<div class="setup"><div style="width:130px;margin:0 auto;color:var(--acc)">'+HEART+'</div><h1>Nearly</h1><p class="mu">A cozy little space for two.</p><label for="a1">Your name</label><input id="a1"><label for="a2">Their name</label><input id="a2"><label for="a3">The day you got together</label><input id="a3" type="date"><button class="btn" style="margin-top:22px;width:100%" data-a="begin">Begin</button></div>';return}
+  var v={home:home,play:playV,talk:talk,mood:moodV,us:us}[tab]();
+  v+='<nav><div>'+[["home","🏠","Home"],["play","🎮","Play"],["talk","💬","Talk"],["mood","🌈","Mood"],["us","💞","Us"]].map(function(x){return'<button data-a="tab" data-v="'+x[0]+'" class="'+(tab===x[0]?"on":"")+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("")+'</div></nav>';
+  a.innerHTML=v;
+}
+function V(i){return document.getElementById(i)}
+function act(a,v){
+  if(a==="tab"){tab=v;G=null;render();window.scrollTo(0,0);return}
+  if(a==="heart"){S.hearts++;save();try{NW.sendHeart();syncW()}catch(e){}var b=V("hb");b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop");V("hh").textContent=S.hearts+" hearts sent. Now tell them out loud 💗";return}
+  if(a==="begin"){var m=V("a1").value.trim(),y=V("a2").value.trim(),d=V("a3").value;if(!m||!y||!d)return;S.me=m;S.you=y;S.date=d;S.tz=myTz();save();syncW();render();return}
+  if(a==="prof"){var m2=V("nm").value.trim(),y2=V("ny").value.trim(),d2=V("nd").value;if(m2)S.me=m2;if(y2)S.you=y2;if(d2)S.date=d2;save();syncW();render();return}
+  if(a==="deck"){deck=v;card=Math.floor(Math.random()*8)}
+  if(a==="card")card=(card+1+Math.floor(Math.random()*3))%DK[deck].length;
+  if(a==="who")who=v;
+  if(a==="ms")ms=+v;
+  if(a==="logm"){if(ms===null)return;S.mood.push({d:dk(new Date()),w:who,m:ms,n:V("mn").value.trim(),t:Date.now()});try{if(who==="me")NW.setStatus({mood:EM[ms][1],moodMsg:V("mn").value.trim()})}catch(e){}ms=null;save()}
+  if(a==="play"){G=v?{mode:v,i:Math.floor(Math.random()*6),step:0,a:null,b:null}:null;dare=-1}
+  if(a==="dare")dare=(dare+1+Math.floor(Math.random()*5))%DARES.length;
+  if(a==="pick"){if(G.step===0){G.a=+v;G.step=1}else if(G.step===1){G.b=+v;G.step=2;var s=S.sc[G.mode];s[1]++;if(G.a===G.b)s[0]++;save()}}
+  if(a==="next"){G.i++;G.step=0;G.a=G.b=null}
+  if(a==="wid"){S.wid[v]=S.wid[v]?0:1;save()}
+  if(a==="pin"){try{NW.pinWidget(v)}catch(e){}return}
+  if(a==="acc"){S.acc=v;save()}
+  if(a==="reset"){if(confirm("Erase everything and start over?")){try{localStorage.removeItem("nearly")}catch(e){}location.reload()}return}
+  render();
+}
+load();render();
+document.getElementById("app").addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(b)act(b.dataset.a,b.dataset.v)});
+document.getElementById("app").addEventListener("change",function(e){var k=e.target.dataset.s;if(k){S[k]=e.target.value;save();render()}});
+setInterval(function(){if(tab==="home"||tab==="us"){var t=document.activeElement;if(!t||t.tagName==="BODY")render()}},30000);
+</script>
+</body>
+</html>

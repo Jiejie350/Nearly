@@ -85,8 +85,8 @@ final class NearlyPhotos {
             switch (mode) {
                 case "partner": take = kind.equals("partner") && j.optString("by").equals(d.pslot); break;
                 case "couple": take = kind.equals("couple"); break;
-                case "favorites": take = j.optBoolean("fav", false) && !kind.equals("partner") && !kind.equals("hw"); break;
-                case "recent": take = !kind.equals("partner") && !kind.equals("hw"); break;
+                case "favorites": take = j.optBoolean("fav", false) && !kind.equals("partner") && !kind.equals("hw") && !kind.equals("msg"); break;
+                case "recent": take = !kind.equals("partner") && !kind.equals("hw") && !kind.equals("msg"); break;
                 case "pick": take = j.optString("id").equals(selId); break;
                 case "hw": take = kind.equals("hw"); break;
                 default: take = kind.equals("gallery") || kind.equals("couple"); break; // gallery
@@ -115,12 +115,13 @@ final class NearlyPhotos {
             });
         }
         HashSet<String> keep = new HashSet<>();
-        int n = 0;
+        int n = 0, msgN = 0;
         for (String id : ids) {
             JSONObject j = idx.optJSONObject(id);
             if (j == null) continue;
             boolean special = j.optString("kind", "").equals("partner") || j.optString("kind", "").equals("couple") || j.optString("kind", "").equals("hw");
-            if (!special && ++n > MAX_PHOTOS) continue;
+            if (j.optString("kind", "").equals("msg")) { if (++msgN > 30) continue; }   // keep the newest 30 handwritten messages
+            else if (!special && ++n > MAX_PHOTOS) continue;
             keep.add(file(c, id).getName());
             long ts = j.optLong("ts", 0);
             File f = file(c, id);

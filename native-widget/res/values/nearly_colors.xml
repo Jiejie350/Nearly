@@ -8,4 +8,5 @@
     <color name="nly_acc">#FF7AA8</color>
     <color name="nly_acc_dark">#E5648F</color>
     <string name="nearly_widget_desc">Days together, your countdown and a tap-to-send heart.</string>
+    <color name="nly_launcher_bg">#FFB3CB</color>
 </resources>

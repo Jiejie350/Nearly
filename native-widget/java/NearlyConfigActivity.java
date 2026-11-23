@@ -64,8 +64,6 @@ public class NearlyConfigActivity extends Activity {
                     {"shared", "Shared mood status"}, {"calendar", "Mood calendar"}, {"message", "Mood message"}};
             case "countdown": return new String[][]{{"next", "Next date"}, {"anniv", "Anniversary"}, {"birthday", "Birthday"}, {"meetup", "Upcoming meetup"},
                     {"vacation", "Vacation"}, {"special", "Special occasion"}, {"custom", "Custom event"}};
-            case "notes": return new String[][]{{"love", "Shared love notes"}, {"sticky", "Sticky note"}, {"private", "Private message"}, {"reminders", "Shared reminders"},
-                    {"handwritten", "Handwritten note"}, {"custom", "Custom text"}, {"quick", "Quick message sending"}};
             case "game": return new String[][]{{"ttt", "Tic-Tac-Toe"}, {"daily", "Daily question"}, {"nhie", "Never have I ever"}, {"challenge", "Daily couple challenge"},
                     {"random", "Random question"}, {"invite", "Game invitations"}};
             default: return null;
@@ -186,8 +184,16 @@ public class NearlyConfigActivity extends Activity {
 
         // ---- sync
         section("Refresh & sync");
-        addSpinner("refresh", "Background refresh", new String[]{"15", "30", "60", "180", "0"},
-                new String[]{"Every 15 min", "Every 30 min", "Every hour", "Every 3 hours", "Manual only"}, "30");
+        if (type.equals("msg")) {
+            TextView fixed = new TextView(this);
+            fixed.setText("Checks for new messages every 10 minutes, automatically. (Fixed)");
+            fixed.setTextSize(13);
+            fixed.setPadding(0, dp(4), 0, dp(4));
+            form.addView(fixed);
+        } else {
+            addSpinner("refresh", "Background refresh", new String[]{"15", "30", "60", "180", "0"},
+                    new String[]{"Every 15 min", "Every 30 min", "Every hour", "Every 3 hours", "Manual only"}, "30");
+        }
         addButton("Sync now", new Runnable() {
             public void run() { NearlySync.syncAsync(NearlyConfigActivity.this); }
         });
@@ -208,7 +214,7 @@ public class NearlyConfigActivity extends Activity {
         addPrivSpinner("locationPrecision", "Location precision", new String[]{"exact", "approx", "city"},
                 new String[]{"Exact", "Approximate (~1 km)", "City-level (~10 km)"}, "approx");
         addPrivCheck("maskPrivate", "Hide private messages on the home screen", true);
-        addPrivCheck("notifications", "Notify me about my partner's hearts, notes & invites", true);
+        addPrivCheck("notifications", "Notify me about my partner's hearts, messages & invites", true);
 
         // ---- manage
         section("Manage");
@@ -292,10 +298,6 @@ public class NearlyConfigActivity extends Activity {
                 addSpinner("evSel", "Event for “Custom event”", ids.toArray(new String[0]), labels.toArray(new String[0]), "");
                 break;
             }
-            case "notes":
-                section("Notes options");
-                addText("customText", "Text for “Custom text”", "");
-                break;
             case "interactive":
                 section("Buttons (first four checked are shown)");
                 addMulti("acts", new String[]{"heart", "kiss", "hug", "mood", "note", "task", "notify", "game"},

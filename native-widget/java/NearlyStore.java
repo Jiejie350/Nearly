@@ -20,7 +20,7 @@ import java.util.Iterator;
  */
 final class NearlyStore {
     static final String FILE = "nearly_widget";
-    private static final String[] RESERVED = {"meta", "events", "notes", "tasks", "candle", "game", "photoIndex", "notify"};
+    private static final String[] RESERVED = {"meta", "events", "notes", "tasks", "candle", "game", "photoIndex", "notify", "seen", "typing", "call"};
 
     static SharedPreferences sp(Context c) { return c.getSharedPreferences(FILE, Context.MODE_PRIVATE); }
 

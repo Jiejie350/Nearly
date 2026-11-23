@@ -33,12 +33,13 @@ public class NearlyWidgetPlugin extends Plugin {
     public void update(PluginCall call) {
         SharedPreferences p = prefs();
         SharedPreferences.Editor e = p.edit();
-        e.putString("l1", call.getString("l1", "Nearly"));
-        e.putString("l2", call.getString("l2", ""));
-        e.putString("l3", call.getString("l3", ""));
-        e.putString("url", call.getString("url", ""));
-        e.putString("code", call.getString("code", ""));
-        e.putString("slot", call.getString("slot", ""));
+        // only overwrite what the app actually sent, so a names-only call can't wipe the pairing
+        if (call.hasOption("l1")) e.putString("l1", call.getString("l1", "Nearly"));
+        if (call.hasOption("l2")) e.putString("l2", call.getString("l2", ""));
+        if (call.hasOption("l3")) e.putString("l3", call.getString("l3", ""));
+        if (call.hasOption("url")) e.putString("url", call.getString("url", ""));
+        if (call.hasOption("code")) e.putString("code", call.getString("code", ""));
+        if (call.hasOption("slot")) e.putString("slot", call.getString("slot", ""));
         // new, optional
         if (call.hasOption("pslot")) e.putString("pslot", call.getString("pslot", ""));
         if (call.hasOption("name")) e.putString("myName", call.getString("name", ""));
@@ -260,7 +261,130 @@ public class NearlyWidgetPlugin extends Plugin {
         call.resolve();
     }
 
+    // ---------------------------------------------------------------- live chat / call helpers
+    /** Light sync for the open Chat screen: pull the couple node, refresh cache, repaint widgets only if chat changed. */
+    @PluginMethod
+    public void pull(final PluginCall call) {
+        final Context c = getContext();
+        new Thread(new Runnable() {
+            public void run() {
+                JSObject o = new JSObject();
+                try {
+                    if (!NearlyStore.paired(c)) { o.put("ok", false); call.resolve(o); return; }
+                    try { NearlySync.flushQueue(c); } catch (Exception ignored) { }
+                    JSONObject now = NearlySync.parseObj(NearlyApi.get(NearlySync.base(c) + ".json"));
+                    JSONObject prev = NearlyStore.cache(c);
+                    boolean changed = !String.valueOf(prev.optJSONObject("notes")).equals(String.valueOf(now.optJSONObject("notes")));
+                    NearlyStore.setCache(c, now);
+                    try { NearlyPhotos.sync(c, now); } catch (Throwable ignored) { }
+                    if (changed) NearlyWidgets.refreshAll(c);
+                    o.put("ok", true);
+                } catch (Exception e) { o.put("ok", false); }
+                call.resolve(o);
+            }
+        }).start();
+    }
+
+    /** {path} -> {data} straight from the database (used for call signalling). */
+    @PluginMethod
+    public void fetchPath(final PluginCall call) {
+        final Context c = getContext();
+        final String path = call.getString("path", "");
+        new Thread(new Runnable() {
+            public void run() {
+                JSObject o = new JSObject();
+                try {
+                    Object v = new org.json.JSONTokener(NearlyApi.get(NearlySync.urlFor(c, path))).nextValue();
+                    o.put("data", v == JSONObject.NULL ? null : v);
+                } catch (Exception e) { o.put("error", String.valueOf(e.getMessage())); }
+                call.resolve(o);
+            }
+        }).start();
+    }
+
+    /** {path, value} - quick write with no widget repaint (typing, read receipts, call signalling). */
+    @PluginMethod
+    public void signal(final PluginCall call) {
+        final Context c = getContext();
+        final String path = call.getString("path", "");
+        Object v0 = call.getData().opt("value");
+        final Object v = v0 == JSONObject.NULL ? null : v0;
+        new Thread(new Runnable() {
+            public void run() {
+                try { NearlySync.writeLocal(c, path, v); NearlySync.push(c, path, v); } catch (Throwable ignored) { }
+                call.resolve();
+            }
+        }).start();
+    }
+
+    // ---------------------------------------------------------------- chat (text + handwriting)
+    /** {text, editId?} - sends a text message (editId replaces your earlier one). */
+    @PluginMethod
+    public void sendMessage(final PluginCall call) {
+        final String text = call.getString("text", "").trim();
+        final String editId = call.getString("editId", "");
+        if (text.isEmpty()) { call.reject("text required"); return; }
+        final Context c = getContext();
+        new Thread(new Runnable() {
+            public void run() {
+                String id = NearlyMsgs.sendText(c, text, editId);
+                JSObject o = new JSObject();
+                o.put("id", id == null ? "" : id);
+                o.put("ok", id != null);
+                call.resolve(o);
+            }
+        }).start();
+    }
+
+    /** {base64} - PNG or JPEG of a handwritten message (data-URL prefix allowed). */
+    @PluginMethod
+    public void sendDrawing(final PluginCall call) {
+        final String b64 = call.getString("base64");
+        if (b64 == null || b64.isEmpty()) { call.reject("base64 required"); return; }
+        final Context c = getContext();
+        new Thread(new Runnable() {
+            public void run() {
+                String id = NearlyMsgs.sendDrawing(c, NearlyPhotos.decodeB64(b64));
+                JSObject o = new JSObject();
+                o.put("id", id == null ? "" : id);
+                o.put("ok", id != null);
+                call.resolve(o);
+            }
+        }).start();
+    }
+
+    /** {id} -> {dataUrl} for a cached handwriting image (empty if not downloaded yet). */
+    @PluginMethod
+    public void getImage(PluginCall call) {
+        JSObject o = new JSObject();
+        try {
+            java.io.File f = NearlyPhotos.file(getContext(), call.getString("id", ""));
+            if (f.exists()) {
+                java.io.FileInputStream in = new java.io.FileInputStream(f);
+                java.io.ByteArrayOutputStream bo = new java.io.ByteArrayOutputStream();
+                byte[] buf = new byte[8192];
+                int n;
+                while ((n = in.read(buf)) > 0) bo.write(buf, 0, n);
+                in.close();
+                o.put("dataUrl", "data:image/png;base64," + android.util.Base64.encodeToString(bo.toByteArray(), android.util.Base64.NO_WRAP));
+            } else o.put("dataUrl", "");
+        } catch (Exception e) { o.put("dataUrl", ""); }
+        call.resolve(o);
+    }
+
     // ---------------------------------------------------------------- widget management
+    /** {id} - opens that widget's settings screen (same one the launcher's "reconfigure" uses). */
+    @PluginMethod
+    public void editWidget(PluginCall call) {
+        Integer id = call.getInt("id");
+        if (id == null) { call.reject("id required"); return; }
+        android.content.Intent i = new android.content.Intent(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
+        i.setClass(getContext(), NearlyConfigActivity.class);
+        i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, (int) id);
+        getActivity().startActivity(i);
+        call.resolve();
+    }
+
     @PluginMethod
     public void listWidgets(PluginCall call) {
         Context c = getContext();

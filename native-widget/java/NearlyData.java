@@ -205,6 +205,9 @@ final class NearlyData {
         return l;
     }
 
+    /** Chat messages (text + handwriting) newest-first. Each object gets an "id" field. */
+    List<JSONObject> chat() { return notes("chat"); }
+
     /** Open tasks oldest-first. */
     List<JSONObject> openTasks() {
         ArrayList<JSONObject> l = new ArrayList<>();

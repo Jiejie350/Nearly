@@ -8,7 +8,7 @@
     android:targetCellHeight="3"
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/nly_w_card"
-    android:previewLayout="@layout/nly_w_preview"
+    android:previewLayout="@layout/nly_w_prev_game"
     android:configure="com.benjamin.nearly.NearlyConfigActivity"
     android:widgetFeatures="reconfigurable"
     android:resizeMode="horizontal|vertical"

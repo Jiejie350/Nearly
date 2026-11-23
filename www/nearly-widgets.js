@@ -62,6 +62,21 @@
     removeEvent: function (id) { return call('write', { path: 'events/' + id, value: null }); },
     addTask: function (title, by) { return call('write', { path: 'tasks/' + uid(), value: { title: title, done: false, by: by || '', ts: Date.now() } }); },
     completeTask: function (id) { return call('write', { path: 'tasks/' + id + '/done', value: true }); },
+    // ---- chat: text or handwriting (what the Messages widget shows)
+    sendMessage: function (text, editId) { return call('sendMessage', { text: text, editId: editId || '' }); },
+    sendDrawing: function (canvas) { return call('sendDrawing', { base64: canvas.toDataURL('image/png') }); },
+    getImage: function (id) { return call('getImage', { id: id }).then(function (r) { return r && r.dataUrl || ''; }); },
+    pull: function () { return call('pull'); },                                  // light refresh while Chat is open
+    signal: function (path, value) { return call('signal', { path: path, value: value }); },   // quiet write (typing, seen, calls)
+    fetchPath: function (path) { return call('fetchPath', { path: path }).then(function (r) { return r ? r.data : null; }); },
+    /** Chat messages, oldest first: [{id, type:'text'|'draw', text, img, by, ts, edited}] */
+    getMessages: function () {
+      return call('getCache').then(function (r) {
+        var n = (r && r.data && r.data.notes) || {}, out = [];
+        Object.keys(n).forEach(function (k) { var j = n[k]; if (j && j.kind === 'chat') { j.id = k; out.push(j); } });
+        return out.sort(function (a, b) { return a.ts - b.ts; });
+      });
+    },
     addNote: function (n) {            // {text, kind:'love|sticky|private|reminder', by, to?, color?}
       n.ts = Date.now(); return call('write', { path: 'notes/' + uid(), value: n });
     },
@@ -89,12 +104,13 @@
 
     // ---- widget management
     listWidgets: function () { return call('listWidgets'); },
-    pinWidget: function (type) { return call('pinWidget', { type: type }); },   // photo|love|relationship|status|location|mood|countdown|notes|interactive|game|candle
+    pinWidget: function (type) { return call('pinWidget', { type: type }); },   // photo|love|relationship|status|location|mood|countdown|msg|interactive|game|candle
     getWidgetSettings: function (id) { return call('getWidgetSettings', { id: id }); },
     setWidgetSettings: function (id, settings) { return call('setWidgetSettings', { id: id, settings: settings }); },
     resetWidget: function (id) { return call('resetWidget', { id: id }); },
+    editWidget: function (id) { return call('editWidget', { id: id }); },       // opens that widget's settings screen
 
-    /** Which page did the user tap in a widget? ('photos','messages','timeline','events','mood','notes','games','location','candle','home') */
+    /** Which page did the user tap in a widget? ('photos','chat','timeline','events','mood','games','location','candle','home') */
     takePendingPage: function () { return call('getPendingPage').then(function (r) { return r && r.page || ''; }); }
   };
 

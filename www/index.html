@@ -54,11 +54,54 @@ label{display:block;font-size:14px;color:var(--mu);margin:14px 0 5px}
 .sw{display:flex;gap:12px}
 .sw button{width:42px;height:42px;border-radius:50%;border:3px solid var(--sf);box-shadow:0 0 0 2px var(--ln);cursor:pointer}
 .sw button.on{box-shadow:0 0 0 3px var(--ink)}
+.app.chat{height:100vh;height:100dvh;display:flex;flex-direction:column;padding-bottom:64px;padding-top:10px}
+.chat{display:flex;flex-direction:column;flex:1;min-height:0}
+.chead{display:flex;align-items:center;gap:12px;padding:6px 2px 10px;border-bottom:2px solid var(--ln)}
+.av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--acc),#a794ff);color:#fff;display:flex;align-items:center;justify-content:center;font:600 19px "Fredoka",sans-serif;flex:none}
+.cn{flex:1;min-width:0}.cn b{display:block;font:500 18px "Fredoka",sans-serif}.cn small{display:block;font-size:12px;color:var(--mu);font-weight:600;height:16px}
+.cn small.on{color:#2fbf71}
+.ib{width:42px;height:42px;border-radius:50%;border:0;background:var(--sf);color:var(--acc);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;box-shadow:0 0 0 2px var(--ln)}
+.ib svg{width:22px;height:22px;fill:currentColor}
+.ib.send{background:var(--acc);color:var(--on);box-shadow:none}
+.msgs{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;padding:10px 2px;gap:2px}
+.sep{align-self:center;font-size:11px;color:var(--mu);font-weight:600;margin:10px 0 6px}
+.bub{position:relative;max-width:78%;padding:9px 14px;border-radius:20px;font-weight:600;word-wrap:break-word;white-space:pre-wrap;margin-top:8px;user-select:none}
+.bub.g{margin-top:2px}
+.bub.me{align-self:flex-end;background:var(--acc);color:var(--on);border-bottom-right-radius:6px}
+.bub.you{align-self:flex-start;background:var(--sf);border:2px solid var(--ln);border-bottom-left-radius:6px}
+.bub.g.me{border-top-right-radius:6px}.bub.g.you{border-top-left-radius:6px}
+.bub img{display:block;width:230px;max-width:100%;border-radius:12px;background:#fff8fb}
+.bub .rx{position:absolute;bottom:-9px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--sf);box-shadow:0 0 0 2px var(--ln);display:flex;align-items:center;justify-content:center}
+.bub .rx svg{width:12px;height:12px;fill:#ff4f8b}
+.bub.hasrx{margin-bottom:8px}
+.st{align-self:flex-end;font-size:11px;color:var(--mu);font-weight:600;margin:3px 6px 0}
+.bub button{border:0;background:none;color:inherit;font:inherit;font-size:11px;text-decoration:underline;cursor:pointer;padding:0;margin-left:8px;opacity:.75}
+.cdock{padding-top:8px}
+.crow{display:flex;gap:8px;align-items:flex-end}
+.crow textarea{flex:1;border-radius:22px;padding:11px 16px;resize:none;max-height:110px;line-height:1.35}
+#callo{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(160deg,#3a2132,#2c2442);color:#fff;text-align:center;padding:30px}
+#callo.on{display:flex}
+#callo .av{width:120px;height:120px;font-size:52px}
+#callo h2{margin:14px 0 0;color:#fff}
+#callo .cs{opacity:.8;min-height:24px}
+#callo .btns{display:flex;gap:34px;margin-top:40px}
+#callo .cb{width:68px;height:68px;border-radius:50%;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(255,255,255,.18);color:#fff}
+#callo .cb svg{width:30px;height:30px;fill:currentColor}
+#callo .cb.red{background:#e53935}#callo .cb.red svg{transform:rotate(135deg)}
+#callo .cb.grn{background:#2fbf71}
+#callo .cb.on{background:#fff;color:#3a2132}
+@keyframes ringp{0%{box-shadow:0 0 0 0 rgba(255,122,168,.6)}100%{box-shadow:0 0 0 38px rgba(255,122,168,0)}}
+#callo.ring .av{animation:ringp 1.4s infinite}
+#cp{width:100%;height:170px;border:2px solid var(--ln);border-radius:16px;background:#fff8fb;touch-action:none;display:none;margin-top:10px}
+#cp.on{display:block}
+.pens{display:none;gap:10px;margin-top:8px;align-items:center}.pens.on{display:flex}
+.pens i{width:26px;height:26px;border-radius:50%;display:block;cursor:pointer;border:3px solid var(--sf);box-shadow:0 0 0 2px var(--ln)}
+nav button{padding-left:0;padding-right:0}
 nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;background:var(--bg);border-top:2px solid var(--ln);padding-bottom:env(safe-area-inset-bottom,0px)}
 nav div{width:100%;max-width:440px;display:flex}
 nav button{flex:1;border:0;background:none;padding:9px 0 10px;font:500 12px "Fredoka",sans-serif;color:var(--mu);cursor:pointer}
-nav button span{display:block;font-size:22px;filter:grayscale(1);opacity:.6}
-nav button.on{color:var(--ink)}nav button.on span{filter:none;opacity:1}
+nav button span{display:block;height:26px;opacity:.55}nav button span svg{width:24px;height:24px;fill:currentColor}
+nav button.on{color:var(--ink)}nav button.on span{opacity:1;color:var(--acc)}
 .setup{padding-top:40px;text-align:center}
 .setup h1{font-size:44px}
 :focus-visible{outline:3px solid var(--acc);outline-offset:2px}
@@ -67,13 +110,17 @@ nav button.on{color:var(--ink)}nav button.on span{filter:none;opacity:1}
 </head>
 <body>
 <div class="app" id="app"></div>
+<div id="callo" role="dialog" aria-label="Call"></div>
+<audio id="ra" autoplay playsinline></audio>
 <script src="nearly-widgets.js"></script>
 <script>
-var S={me:"",you:"",date:"",hearts:0,mood:[],tz:"",meet:"",meetL:"",wid:{days:1,meet:1,time:1,mood:1,hearts:1,q:1},acc:"pink",sc:{wyr:[0,0],quiz:[0,0]}};
+var S={me:"",you:"",date:"",hearts:0,mood:[],tz:"",meet:"",meetL:"",wid:{days:1,meet:1,time:1,mood:1,hearts:1,q:1},acc:"pink",cfg:{url:"",code:"",slot:"a"},sc:{wyr:[0,0],quiz:[0,0]}};
+var CH={msgs:[],edit:"",pad:false,dirty:false,imgs:{},pen:"#4a2a3c",timer:null};
 var tab="home",G=null,deck="deep",card=0,dare=-1,who="me",ms=null,play="";
-var NW=window.NearlyWidgets||{configure:function(){},sendHeart:function(){},setStatus:function(){},setStartDate:function(){},pinWidget:function(){}};
-function syncW(){try{NW.configure({name:S.me,partnerName:S.you,hearts:S.hearts});NW.setStartDate(S.date)}catch(e){}}
-function load(){try{var r=localStorage.getItem("nearly");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}}
+var NW=window.NearlyWidgets||{available:false,configure:function(){},sendHeart:function(){},setStatus:function(){},setStartDate:function(){},pinWidget:function(){}};
+function cfgOk(){return S.cfg&&S.cfg.url&&S.cfg.code}
+function syncW(){try{var o={name:S.me,partnerName:S.you,hearts:S.hearts};if(cfgOk()){o.url=S.cfg.url;o.code=S.cfg.code;o.slot=S.cfg.slot;o.pslot=S.cfg.slot==="a"?"b":"a"}NW.configure(o);NW.setStartDate(S.date)}catch(e){}}
+function load(){try{var r=localStorage.getItem("nearly");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}if(!S.cfg)S.cfg={url:"",code:"",slot:"a"}}
 function save(){try{localStorage.setItem("nearly",JSON.stringify(S))}catch(e){}}
 var EM=[["😍","Loved"],["😊","Happy"],["😌","Calm"],["🥺","Missing you"],["😴","Tired"],["😤","Stressed"]];
 var DK={deep:["What do you think we’ll laugh about when we’re old?","What is one fear you feel safer sharing with me?","When do you feel closest to me?","What did you need most as a kid that you can give yourself now?","What is a dream you haven’t told many people?","What do I do that makes you feel understood?","What would you like us to never stop doing?","What is one thing you’re healing from, and how can I help?"],
@@ -141,30 +188,134 @@ function moodV(){
   h+=L.length?L.map(function(e){return'<div class="log">'+EM[e.m][0]+' <b>'+esc(e.w==="me"?S.me:S.you)+'</b> felt '+EM[e.m][1].toLowerCase()+(e.n?' – '+esc(e.n):'')+'<br><span class="lbl">'+new Date(e.t).toLocaleDateString(undefined,{month:"short",day:"numeric"})+'</span></div>'}).join(""):'<p class="mu">Your moods will show up here.</p>';
   return h+'</div>';
 }
+var NAVI={home:'<svg viewBox="0 0 24 24"><path d="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/></svg>',chat:'<svg viewBox="0 0 24 24"><path d="M20,2H4c-1.1,0 -2,0.9 -2,2v18l4,-4h14c1.1,0 2,-0.9 2,-2V4c0,-1.1 -0.9,-2 -2,-2z"/></svg>',play:'<svg viewBox="0 0 24 24"><path d="M21,6H3c-1.1,0 -2,0.9 -2,2v8c0,1.1 0.9,2 2,2h18c1.1,0 1.99,-0.9 1.99,-2L23,8c0,-1.1 -0.9,-2 -2,-2zM11,13H8v3H6v-3H3v-2h3V8h2v3h3v2zM15.5,15c-0.83,0 -1.5,-0.67 -1.5,-1.5s0.67,-1.5 1.5,-1.5 1.5,0.67 1.5,1.5 -0.67,1.5 -1.5,1.5zM19.5,12c-0.83,0 -1.5,-0.67 -1.5,-1.5S18.67,9 19.5,9s1.5,0.67 1.5,1.5 -0.67,1.5 -1.5,1.5z"/></svg>',talk:'<svg viewBox="0 0 24 24"><path d="M9,21c0,0.55 0.45,1 1,1h4c0.55,0 1,-0.45 1,-1v-1H9v1zM12,2C8.14,2 5,5.14 5,9c0,2.38 1.19,4.47 3,5.74V17c0,0.55 0.45,1 1,1h6c0.55,0 1,-0.45 1,-1v-2.26c1.81,-1.27 3,-3.36 3,-5.74 0,-3.86 -3.14,-7 -7,-7z"/></svg>',mood:'<svg viewBox="0 0 24 24"><path d="M11.99,2C6.47,2 2,6.48 2,12s4.47,10 9.99,10C17.52,22 22,17.52 22,12S17.52,2 11.99,2zM8.5,8.5a1.25,1.25 0 1,1 0,2.5 1.25,1.25 0 0,1 0,-2.5zM15.5,8.5a1.25,1.25 0 1,1 0,2.5 1.25,1.25 0 0,1 0,-2.5zM12,17.5c-2.33,0 -4.31,-1.46 -5.11,-3.5h10.22c-0.8,2.04 -2.78,3.5 -5.11,3.5z"/></svg>',us:'<svg viewBox="0 0 24 24"><path d="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/></svg>'};
+var WN={photo:"📷 Photos",love:"💗 Love",relationship:"📅 Together",status:"🟢 Partner status",location:"📍 Location",mood:"🌈 Mood",countdown:"⏳ Countdown",msg:"💌 Messages",interactive:"⚡ Quick actions",game:"🎮 Games",candle:"🕯️ Candle"};
+var ICO={
+phone:'<svg viewBox="0 0 24 24"><path d="M6.62,10.79c1.44,2.83 3.76,5.14 6.59,6.59l2.2,-2.2c0.27,-0.27 0.67,-0.36 1.02,-0.24 1.12,0.37 2.33,0.57 3.57,0.57 0.55,0 1,0.45 1,1V20c0,0.55 -0.45,1 -1,1 -9.39,0 -17,-7.61 -17,-17 0,-0.55 0.45,-1 1,-1h3.5c0.55,0 1,0.45 1,1 0,1.25 0.2,2.45 0.57,3.57 0.11,0.35 0.03,0.74 -0.25,1.02l-2.2,2.2z"/></svg>',
+send:'<svg viewBox="0 0 24 24"><path d="M2.01,21L23,12 2.01,3 2,10l15,2 -15,2z"/></svg>',
+pen:'<svg viewBox="0 0 24 24"><path d="M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z"/></svg>',
+heart:'<svg viewBox="0 0 24 24"><path d="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/></svg>',
+mic:'<svg viewBox="0 0 24 24"><path d="M12,14c1.66,0 2.99,-1.34 2.99,-3L15,5c0,-1.66 -1.34,-3 -3,-3S9,3.34 9,5v6c0,1.66 1.34,3 3,3zM17.3,11c0,3 -2.54,5.1 -5.3,5.1S6.7,14 6.7,11H5c0,3.41 2.72,6.23 6,6.72V21h2v-3.28c3.28,-0.48 6,-3.3 6,-6.72h-1.7z"/></svg>',
+micoff:'<svg viewBox="0 0 24 24"><path d="M19,11h-1.7c0,0.74 -0.16,1.43 -0.43,2.05l1.23,1.23c0.56,-0.98 0.9,-2.09 0.9,-3.28zM14.98,11.17c0,-0.06 0.02,-0.11 0.02,-0.17V5c0,-1.66 -1.34,-3 -3,-3S9,3.34 9,5v0.18l5.98,5.99zM4.27,3L3,4.27l6.01,6.01V11c0,1.66 1.33,3 2.99,3 0.22,0 0.44,-0.03 0.65,-0.08l1.66,1.66c-0.71,0.33 -1.5,0.52 -2.31,0.52 -2.76,0 -5.3,-2.1 -5.3,-5.1H5c0,3.41 2.72,6.23 6,6.72V21h2v-3.28c0.91,-0.13 1.77,-0.45 2.54,-0.9L19.73,21 21,19.73 4.27,3z"/></svg>'};
+function pSlot(){return S.cfg.slot==="a"?"b":"a"}
+function cDat(){return(CH.cache&&CH.cache.data)||{}}
+function statusLine(){
+  var d=cDat(),p=d[pSlot()]||{},ty=(d.typing||{})[pSlot()]||0,now=Date.now();
+  if(ty&&now-ty<6000)return["typing…",1];
+  if(p.online&&now-p.online<180000)return["Active now",1];
+  if(p.active){var m=Math.round((now-p.active)/60000);return["Active "+(m<1?"just now":m<60?m+" min ago":m<1440?Math.round(m/60)+" h ago":"a while ago"),0]}
+  return["",0];
+}
+function chatV(){
+  if(!NW.available)return'<h2>Chat</h2><div class="card"><p>Chat runs in the Android app.</p></div>';
+  if(!cfgOk())return'<h2>Chat</h2><div class="card tint" style="--t:#a794ff"><p>Connect your two phones first. Open <b>Us → Connect</b> and enter the shared database link and code.</p><button class="btn" style="margin-top:12px" data-a="tab" data-v="us">Go to Us</button></div>';
+  var pens=["#4a2a3c","#e53935","#ff7aa8","#4fa3ff","#2dd4bf"];
+  return'<div class="chat"><div class="chead"><div class="av">'+esc((S.you||"?").slice(0,1).toUpperCase())+'</div><div class="cn"><b>'+esc(S.you)+'</b><small id="cst"></small></div><button class="ib" data-a="call" aria-label="Audio call">'+ICO.phone+'</button></div>'+
+  '<div id="msgs" class="msgs"></div><div class="cdock">'+
+  '<div class="pens'+(CH.pad?" on":"")+'" id="pens">'+pens.map(function(c){return'<i data-a="pen" data-v="'+c+'" style="background:'+c+'"></i>'}).join("")+'<button class="chip" data-a="pundo">Undo</button><button class="chip" data-a="pclr">Clear</button></div>'+
+  '<canvas id="cp" class="'+(CH.pad?"on":"")+'"></canvas>'+
+  '<div class="crow"><button class="ib" data-a="ptog" aria-label="Handwrite">'+ICO.pen+'</button><textarea id="ct" rows="1" placeholder="Message…"></textarea><button class="ib send" data-a="csend" aria-label="Send">'+ICO.send+'</button></div></div></div>';
+}
+function dayLbl(t){var d=new Date(t),n=new Date(),y=new Date();y.setDate(n.getDate()-1);var tm=d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});if(d.toDateString()===n.toDateString())return"Today "+tm;if(d.toDateString()===y.toDateString())return"Yesterday "+tm;return d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+tm}
+function bubbles(){
+  var box=V("msgs");if(!box)return;
+  var me=S.cfg.slot,d=cDat(),seen=(d.seen||{})[pSlot()]||0,last=null,lastMine=null;
+  CH.msgs.forEach(function(m){if(m.by===me&&m.type==="text")last=m.id;if(m.by===me)lastMine=m});
+  if(!CH.msgs.length){box.innerHTML='<p class="mu" style="margin:auto">No messages yet. Say hi 💌</p>';return}
+  var h="",prev=null;
+  CH.msgs.forEach(function(m,i){
+    var mine=m.by===me;
+    if(!prev||m.ts-prev.ts>3600000)h+='<div class="sep">'+dayLbl(m.ts)+'</div>';
+    var grp=prev&&prev.by===m.by&&m.ts-prev.ts<180000;
+    var rx=m.react&&Object.keys(m.react).some(function(k){return m.react[k]});
+    var body=m.type==="draw"?'<img data-img="'+esc(m.img)+'" alt="Handwritten message"'+(CH.imgs[m.img]?' src="'+CH.imgs[m.img]+'"':'')+'>':esc(m.text||"");
+    h+='<div class="bub '+(mine?"me":"you")+(grp?" g":"")+(rx?" hasrx":"")+'" data-m="'+m.id+'">'+body+(m.edited?'<small style="opacity:.6;font-size:11px"> · edited</small>':'')+(mine&&m.id===last?'<button data-a="cedit" data-v="'+m.id+'">edit</button>':'')+(rx?'<span class="rx">'+ICO.heart+'</span>':'')+'</div>';
+    prev=m;
+  });
+  if(lastMine)h+='<div class="st">'+(lastMine.ts<=seen?"Seen":(cDat().__q?"Sending…":"Sent"))+'</div>';
+  var atEnd=box.scrollHeight-box.scrollTop-box.clientHeight<80;
+  box.innerHTML=h;
+  if(atEnd||CH.first!==false)box.scrollTop=box.scrollHeight;CH.first=false;
+  box.querySelectorAll("img[data-img]").forEach(function(im){var id=im.dataset.img;if(CH.imgs[id])return;NW.getImage(id).then(function(u){if(u){CH.imgs[id]=u;im.src=u}})});
+  var pm=null;CH.msgs.forEach(function(m){if(m.by!==me)pm=m});
+  if(pm&&pm.ts>(CH.seenSent||0)){CH.seenSent=pm.ts;NW.signal("seen/"+me,pm.ts)}
+}
+function chatLoad(){
+  if(tab!=="chat"||!NW.getCache)return;
+  NW.getCache().then(function(r){
+    CH.cache=r;var n=(r&&r.data&&r.data.notes)||{},out=[];
+    Object.keys(n).forEach(function(k){var j=n[k];if(j&&j.kind==="chat"){j.id=k;out.push(j)}});
+    out.sort(function(a,b){return a.ts-b.ts});
+    r.data.__q=r.queued>0;
+    var sig=JSON.stringify(out)+((r.data.seen||{})[pSlot()]||0)+r.queued;
+    var st=statusLine(),el=V("cst");if(el){el.textContent=st[0];el.className=st[1]?"on":""}
+    if(sig!==CH.sig||!V("msgs").children.length){CH.sig=sig;CH.msgs=out;bubbles()}
+  })}
+function chatPoll(){if(tab!=="chat"||document.hidden)return;try{NW.pull().then(chatLoad)}catch(e){}}
+function reactTo(id){var m=CH.msgs.filter(function(x){return x.id===id})[0];if(!m||m.by===S.cfg.slot)return;var on=!(m.react&&m.react[S.cfg.slot]);NW.write("notes/"+id+"/react/"+S.cfg.slot,on?"heart":null).then(function(){CH.sig="";chatLoad()})}
+var PD={ctx:null,down:false};
+function padInit(){
+  var c=V("cp");if(!c)return;
+  c.width=c.clientWidth*2||600;c.height=340;PD.ctx=c.getContext("2d");PD.ctx.fillStyle="#fff8fb";PD.ctx.fillRect(0,0,c.width,c.height);
+  PD.ctx.lineWidth=7;PD.ctx.lineCap=PD.ctx.lineJoin="round";CH.dirty=false;CH.strokes=[];
+  function pt(e){var r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]}
+  c.onpointerdown=function(e){c.setPointerCapture(e.pointerId);PD.down=true;var p=pt(e);CH.cur={c:CH.pen,p:[p]};CH.strokes.push(CH.cur);redraw()};
+  c.onpointermove=function(e){if(!PD.down)return;CH.cur.p.push(pt(e));redraw()};
+  c.onpointerup=c.onpointercancel=function(){PD.down=false;CH.dirty=CH.strokes.length>0};
+}
+function redraw(){var c=V("cp"),x=PD.ctx;x.fillStyle="#fff8fb";x.fillRect(0,0,c.width,c.height);CH.strokes.forEach(function(s){x.strokeStyle=s.c;x.beginPath();x.moveTo(s.p[0][0],s.p[0][1]);if(s.p.length===1)x.lineTo(s.p[0][0]+.1,s.p[0][1]+.1);s.p.forEach(function(q){x.lineTo(q[0],q[1])});x.stroke()});CH.dirty=CH.strokes.length>0}
+function chatInit(){CH.first=true;CH.sig="";chatLoad();padInit();clearInterval(CH.timer);CH.timer=setInterval(chatPoll,4000);chatPoll();var t=V("ct");if(t){t.addEventListener("input",function(){t.style.height="auto";t.style.height=Math.min(110,t.scrollHeight)+"px";if(Date.now()-(CH.lt||0)>2500){CH.lt=Date.now();NW.signal("typing/"+S.cfg.slot,Date.now())}})}}
+function widgetList(){
+  var box=V("wl");if(!box||!NW.available||!NW.listWidgets)return;
+  NW.listWidgets().then(function(r){var w=(r&&r.widgets)||[];
+    box.innerHTML=w.length?w.map(function(x){return'<div class="tog"><span>'+(WN[x.type]||x.type)+'</span><span><button class="chip" data-a="wedit" data-v="'+x.id+'">Edit</button> <button class="chip" data-a="wreset" data-v="'+x.id+'">Reset</button></span></div>'}).join(""):'<p class="mu">No Nearly widgets on your home screen yet. Add one below.</p>'})
+}
 function us(){
   var h='<h2>Us</h2><div class="card tint" style="--t:#a794ff"><h3>Long distance</h3><label for="tz">Their time zone</label><select id="tz" data-s="tz">'+TZS.map(function(z){return'<option'+((S.tz||myTz())===z?" selected":"")+'>'+z+'</option>'}).join("")+'</select>';
   var a=clk(),b=clk(S.tz||myTz());
   h+='<div class="row" style="margin-top:12px"><div><div class="lbl">You</div><div class="f" style="font-size:24px">'+a.t+'</div></div><div><div class="lbl">Them</div><div class="f" style="font-size:24px">'+b.t+' '+(b.aw?"☀️":"🌙")+'</div></div></div>';
   h+='<label for="ml">Counting down to</label><input id="ml" data-s="meetL" value="'+esc(S.meetL)+'" placeholder="Our next trip"><label for="md">Date we meet</label><input id="md" type="date" data-s="meet" value="'+S.meet+'"></div>';
+  if(NW.available){h+='<div class="sec"><h3>Text on '+esc(S.you)+'’s widget</h3><div class="card tint" style="--t:#ffb86b;margin-top:10px"><p class="mu" style="margin-bottom:6px">Your own line for her. It appears on her <b>Love</b> widget set to “Message from my partner”. For normal messages or drawings, use the Chat tab or the ✏️ Write button on the Messages widget.</p><label for="wm">Your custom text</label><textarea id="wm" rows="2" maxlength="140" placeholder="Good morning, my love 💗">'+esc(S.wmsg||"")+'</textarea><button class="btn" style="margin-top:12px" data-a="wmsg">Send to her widget</button></div></div><div class="sec"><h3>Connect</h3><div class="card tint" style="--t:#ff7aa8;margin-top:10px"><p class="mu" style="margin-bottom:6px">Both phones use the same database link and code. One picks “A”, the other “B”.</p><label for="cu">Database link</label><input id="cu" placeholder="https://your-db.firebaseio.com" value="'+esc(S.cfg.url)+'"><label for="cc">Couple code</label><input id="cc" value="'+esc(S.cfg.code)+'"><label for="cs">I am</label><select id="cs"><option value="a"'+(S.cfg.slot==="a"?" selected":"")+'>Phone A</option><option value="b"'+(S.cfg.slot==="b"?" selected":"")+'>Phone B</option></select><button class="btn" style="margin-top:14px" data-a="pair">'+(cfgOk()?"Update":"Connect")+'</button></div></div><div class="sec"><h3>My widgets</h3><div class="card" style="margin-top:10px"><div id="wl"><p class="mu">Loading…</p></div><p class="mu" style="margin-top:8px;font-size:13px">Edit changes colours, text, size and more. Every widget also has a ⚙ button on the home screen.</p></div></div>'}
   h+='<div class="sec"><h3>Your control panel</h3><div class="card" style="margin-top:10px"><div class="lbl">Home widgets</div>';
   [["days","Days together"],["meet","Countdown"],["time","Their time"],["mood","Moods today"],["hearts","Hearts"],["q","Today’s question"]].forEach(function(x){h+='<div class="tog"><span>'+x[1]+'</span><button class="chip'+(S.wid[x[0]]?" on":"")+'" data-a="wid" data-v="'+x[0]+'">'+(S.wid[x[0]]?"On":"Off")+'</button></div>'});
   h+='<div class="lbl" style="margin:16px 0 10px">Color</div><div class="sw">';
   [["pink","#ff7aa8"],["lav","#a794ff"],["mint","#4fd6a8"],["peach","#ff9e66"]].forEach(function(c){h+='<button aria-label="'+c[0]+'" class="'+(S.acc===c[0]?"on":"")+'" style="background:'+c[1]+'" data-a="acc" data-v="'+c[0]+'"></button>'});
   h+='</div></div></div>';
-  if(window.NearlyWidgets&&window.NearlyWidgets.available){h+='<div class="sec"><h3>Home-screen widgets</h3><div class="card" style="margin-top:10px"><div class="chips">'+[["love","💗 Love"],["relationship","📅 Together"],["countdown","⏳ Countdown"],["mood","🌈 Mood"],["photo","📷 Photos"],["notes","📝 Notes"],["candle","🕯️ Candle"],["game","🎮 Games"]].map(function(x){return'<button class="chip" data-a="pin" data-v="'+x[0]+'">'+x[1]+'</button>'}).join("")+'</div><p class="mu" style="margin-top:10px">Tap to add one to your home screen.</p></div></div>';}
+  if(window.NearlyWidgets&&window.NearlyWidgets.available){h+='<div class="sec"><h3>Home-screen widgets</h3><div class="card" style="margin-top:10px"><div class="chips">'+[["love","💗 Love"],["relationship","📅 Together"],["countdown","⏳ Countdown"],["mood","🌈 Mood"],["photo","📷 Photos"],["msg","💌 Messages"],["candle","🕯️ Candle"],["game","🎮 Games"]].map(function(x){return'<button class="chip" data-a="pin" data-v="'+x[0]+'">'+x[1]+'</button>'}).join("")+'</div><p class="mu" style="margin-top:10px">Tap to add one to your home screen.</p></div></div>';}
   h+='<div class="sec"><div class="card"><label for="nm">Names</label><div class="row"><input id="nm" value="'+esc(S.me)+'"><input id="ny" value="'+esc(S.you)+'"></div><label for="nd">Together since</label><input id="nd" type="date" value="'+S.date+'"><button class="btn" style="margin-top:14px" data-a="prof">Save</button></div><button class="btn g" style="margin-top:16px" data-a="reset">Start over</button></div>';
   return h;
 }
 function render(){
   var a=document.getElementById("app");document.documentElement.dataset.acc=S.acc;
   if(!S.date){a.innerHTML='<div class="setup"><div style="width:130px;margin:0 auto;color:var(--acc)">'+HEART+'</div><h1>Nearly</h1><p class="mu">A cozy little space for two.</p><label for="a1">Your name</label><input id="a1"><label for="a2">Their name</label><input id="a2"><label for="a3">The day you got together</label><input id="a3" type="date"><button class="btn" style="margin-top:22px;width:100%" data-a="begin">Begin</button></div>';return}
-  var v={home:home,play:playV,talk:talk,mood:moodV,us:us}[tab]();
-  v+='<nav><div>'+[["home","🏠","Home"],["play","🎮","Play"],["talk","💬","Talk"],["mood","🌈","Mood"],["us","💞","Us"]].map(function(x){return'<button data-a="tab" data-v="'+x[0]+'" class="'+(tab===x[0]?"on":"")+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("")+'</div></nav>';
+  var v={home:home,chat:chatV,play:playV,talk:talk,mood:moodV,us:us}[tab]();
+  v+='<nav><div>'+[["home","","Home"],["chat","","Chat"],["play","","Play"],["talk","","Talk"],["mood","","Mood"],["us","","Us"]].map(function(x){return'<button data-a="tab" data-v="'+x[0]+'" class="'+(tab===x[0]?"on":"")+'"><span>'+NAVI[x[0]]+'</span>'+x[2]+'</button>'}).join("")+'</div></nav>';
+  a.className="app"+(tab==="chat"?" chat":"");
   a.innerHTML=v;
+  if(tab==="chat"&&NW.available&&cfgOk())chatInit();else clearInterval(CH.timer);
+  if(tab==="us")widgetList();
 }
 function V(i){return document.getElementById(i)}
 function act(a,v){
   if(a==="tab"){tab=v;G=null;render();window.scrollTo(0,0);return}
+  if(a==="pair"){S.cfg={url:V("cu").value.trim().replace(/\/+$/,""),code:V("cc").value.trim(),slot:V("cs").value};save();syncW();try{NW.syncNow()}catch(e){}render();return}
+  if(a==="wmsg"){S.wmsg=V("wm").value.trim();save();try{NW.setMyMessage(S.wmsg)}catch(e){}V("wm").blur();return}
+  if(a==="wedit"){try{NW.editWidget(+v)}catch(e){}return}
+  if(a==="wreset"){if(confirm("Reset this widget's look to defaults?")){try{NW.resetWidget(+v)}catch(e){}}return}
+  if(a==="ptog"){CH.pad=!CH.pad;V("cp").classList.toggle("on",CH.pad);V("pens").classList.toggle("on",CH.pad);if(CH.pad)padInit();return}
+  if(a==="pen"){CH.pen=v;return}
+  if(a==="pundo"){CH.strokes.pop();redraw();return}
+  if(a==="pclr"){CH.strokes=[];redraw();return}
+  if(a==="call"){startCall();return}
+  if(a==="cedit"){var m=CH.msgs.filter(function(x){return x.id===v})[0];if(m){CH.edit=m.id;V("ct").value=m.text;V("ct").focus()}return}
+  if(a==="csend"){
+    var txt=V("ct").value.trim(),drew=CH.pad&&CH.dirty,jobs=[];
+    if(!txt&&!drew)return;
+    if(txt)jobs.push(NW.sendMessage(txt,CH.edit));
+    if(drew)jobs.push(NW.sendDrawing(V("cp")));
+    V("ct").value="";V("ct").style.height="auto";CH.edit="";if(drew){CH.strokes=[];redraw()}
+    NW.signal("typing/"+S.cfg.slot,0);
+    Promise.all(jobs).then(function(){CH.sig="";chatLoad()});return}
   if(a==="heart"){S.hearts++;save();try{NW.sendHeart();syncW()}catch(e){}var b=V("hb");b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop");V("hh").textContent=S.hearts+" hearts sent. Now tell them out loud 💗";return}
   if(a==="begin"){var m=V("a1").value.trim(),y=V("a2").value.trim(),d=V("a3").value;if(!m||!y||!d)return;S.me=m;S.you=y;S.date=d;S.tz=myTz();save();syncW();render();return}
   if(a==="prof"){var m2=V("nm").value.trim(),y2=V("ny").value.trim(),d2=V("nd").value;if(m2)S.me=m2;if(y2)S.you=y2;if(d2)S.date=d2;save();syncW();render();return}
@@ -183,7 +334,100 @@ function act(a,v){
   if(a==="reset"){if(confirm("Erase everything and start over?")){try{localStorage.removeItem("nearly")}catch(e){}location.reload()}return}
   render();
 }
+
+/* ---------------- audio calls (WebRTC; signalling goes through the shared database under "call") ---------------- */
+var CALL={st:"idle",pc:null,stream:null,id:0,offer:null,t0:0,timer:null,muted:false,ac:null,ringT:null};
+var RTCCFG={iceServers:[{urls:"stun:stun.l.google.com:19302"},{urls:"stun:stun1.l.google.com:19302"}]};
+function ring(on){
+  clearInterval(CALL.ringT);if(!on)return;
+  try{CALL.ac=CALL.ac||new (window.AudioContext||window.webkitAudioContext)();
+    var beep=function(){var o=CALL.ac.createOscillator(),g=CALL.ac.createGain();o.frequency.value=440;g.gain.value=.08;o.connect(g);g.connect(CALL.ac.destination);o.start();o.stop(CALL.ac.currentTime+.35);if(navigator.vibrate&&CALL.st==="incoming")navigator.vibrate(300)};
+    beep();CALL.ringT=setInterval(beep,2000)}catch(e){}
+}
+function callUI(msg){
+  var o=V("callo"),st=CALL.st;
+  if(st==="idle"){o.className="";o.innerHTML="";return}
+  var line=msg||(st==="calling"?"Calling…":st==="incoming"?"Incoming audio call":(CALL.t0?fmtT():"Connecting…"));
+  var h='<div class="av">'+esc((S.you||"?").slice(0,1).toUpperCase())+'</div><h2>'+esc(S.you)+'</h2><div class="cs" id="ccs">'+line+'</div><div class="btns">';
+  if(st==="ended"){}
+  else if(st==="incoming")h+='<button class="cb red" data-c="dec" aria-label="Decline">'+ICO.phone+'</button><button class="cb grn" data-c="ans" aria-label="Answer">'+ICO.phone+'</button>';
+  else h+='<button class="cb'+(CALL.muted?" on":"")+'" data-c="mute" aria-label="Mute">'+(CALL.muted?ICO.micoff:ICO.mic)+'</button><button class="cb red" data-c="end" aria-label="Hang up">'+ICO.phone+'</button>';
+  o.innerHTML=h+'</div>';o.className="on"+(st==="calling"||st==="incoming"?" ring":"");
+}
+function fmtT(){var s=Math.floor((Date.now()-CALL.t0)/1000);return(s>=3600?Math.floor(s/3600)+":":"")+("0"+Math.floor(s%3600/60)).slice(-2)+":"+("0"+s%60).slice(-2)}
+function newPc(){
+  var pc=new RTCPeerConnection(RTCCFG);CALL.pc=pc;
+  pc.ontrack=function(e){var a=V("ra");a.srcObject=e.streams[0];var p=a.play();if(p&&p.catch)p.catch(function(){})};
+  pc.onconnectionstatechange=function(){
+    if(pc!==CALL.pc)return;
+    if(pc.connectionState==="connected"&&CALL.st!=="idle"){ring(false);CALL.st="active";if(!CALL.t0){CALL.t0=Date.now();clearInterval(CALL.timer);CALL.timer=setInterval(function(){var e=V("ccs");if(e&&CALL.st==="active")e.textContent=fmtT()},1000)}callUI()}
+    if(pc.connectionState==="failed")hangUp("Couldn’t connect. Try again on Wi‑Fi.");
+  };
+  return pc;
+}
+function waitIce(pc){return new Promise(function(res){if(pc.iceGatheringState==="complete")return res();var t=setTimeout(res,4000);pc.onicegatheringstatechange=function(){if(pc.iceGatheringState==="complete"){clearTimeout(t);res()}}})}
+function micFail(){endLocal("Allow the microphone to make calls")}
+function startCall(){
+  if(CALL.st!=="idle")return;
+  if(!cfgOk()){alert("Connect your phones first (Us → Connect).");return}
+  if(!navigator.mediaDevices||!window.RTCPeerConnection){alert("Calls aren’t supported on this device.");return}
+  CALL.st="calling";CALL.id=Date.now();CALL.t0=0;CALL.gotAns=0;callUI();ring(true);
+  var id=CALL.id;
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+    CALL.stream=s;var pc=newPc();s.getTracks().forEach(function(t){pc.addTrack(t,s)});
+    return pc.createOffer().then(function(o){return pc.setLocalDescription(o)}).then(function(){return waitIce(pc)}).then(function(){
+      if(CALL.id!==id||CALL.st!=="calling")return;
+      return NW.signal("call",{id:id,state:"ringing",from:S.cfg.slot,ts:id,offer:{type:pc.localDescription.type,sdp:pc.localDescription.sdp}})})
+  }).catch(micFail);
+}
+function incoming(c){CALL.st="incoming";CALL.id=c.id;CALL.offer=c.offer;CALL.from=c.from;CALL.t0=0;callUI();ring(true);
+  clearTimeout(CALL.miss);CALL.miss=setTimeout(function(){if(CALL.st==="incoming"&&CALL.id===c.id)endLocal("Missed call")},50000)}
+function answerCall(){
+  if(CALL.st!=="incoming")return;
+  var id=CALL.id,off=CALL.offer;ring(false);CALL.st="active";callUI("Connecting…");
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+    CALL.stream=s;var pc=newPc();s.getTracks().forEach(function(t){pc.addTrack(t,s)});
+    return pc.setRemoteDescription(off).then(function(){return pc.createAnswer()}).then(function(a){return pc.setLocalDescription(a)}).then(function(){return waitIce(pc)}).then(function(){
+      return NW.signal("call",{id:id,state:"active",from:CALL.from,ts:id,offer:off,answer:{type:pc.localDescription.type,sdp:pc.localDescription.sdp}})})
+  }).catch(function(){NW.signal("call",{id:id,state:"ended",from:CALL.from,ts:id,by:S.cfg.slot});micFail()});
+}
+function hangUp(msg){
+  if(CALL.st==="idle")return;
+  NW.signal("call",{id:CALL.id,state:"ended",from:CALL.st==="incoming"?CALL.from:S.cfg.slot,ts:CALL.id,by:S.cfg.slot});
+  endLocal(msg||"Call ended");
+}
+function endLocal(msg){
+  ring(false);clearInterval(CALL.timer);clearTimeout(CALL.miss);
+  try{if(CALL.pc)CALL.pc.close()}catch(e){}
+  try{if(CALL.stream)CALL.stream.getTracks().forEach(function(t){t.stop()})}catch(e){}
+  CALL.pc=null;CALL.stream=null;CALL.t0=0;CALL.muted=false;
+  if(CALL.st!=="idle"){CALL.st="ended";callUI(msg);setTimeout(function(){if(CALL.st==="ended"){CALL.st="idle";callUI()}},1800)}
+}
+function callTick(){
+  if(!NW.available||!cfgOk()||document.hidden||!NW.fetchPath)return;
+  NW.fetchPath("call").then(function(c){
+    if(!c||typeof c!=="object")return;
+    var me=S.cfg.slot;
+    if(c.state==="ended"){if(c.id===CALL.id&&(CALL.st==="calling"||CALL.st==="active"||CALL.st==="incoming"))endLocal(CALL.st==="incoming"?"Missed call":CALL.st==="calling"?"Call declined":"Call ended");return}
+    if(CALL.st==="idle"){if(c.state==="ringing"&&c.from!==me&&Date.now()-c.ts<45000)incoming(c);return}
+    if(CALL.st==="calling"&&c.id===CALL.id){
+      if(c.state==="active"&&c.answer&&!CALL.gotAns&&CALL.pc){CALL.gotAns=1;CALL.pc.setRemoteDescription(c.answer).catch(function(){hangUp("Couldn’t connect")})}
+      else if(Date.now()-CALL.id>45000&&c.state==="ringing")hangUp("No answer");
+    }
+  });
+}
+document.addEventListener("click",function(e){var b=e.target.closest("#callo [data-c]");if(!b)return;var c=b.dataset.c;
+  if(c==="ans")answerCall();else if(c==="dec"||c==="end")hangUp();
+  else if(c==="mute"){CALL.muted=!CALL.muted;if(CALL.stream)CALL.stream.getAudioTracks().forEach(function(t){t.enabled=!CALL.muted});callUI()}});
+setInterval(callTick,2500);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)callTick()});
+var LT={id:"",t:0};
+document.getElementById("app").addEventListener("click",function(e){
+  var b=e.target.closest(".bub[data-m]");if(!b||e.target.closest("[data-a]"))return;
+  var now=Date.now();if(LT.id===b.dataset.m&&now-LT.t<350){LT.t=0;reactTo(b.dataset.m)}else{LT.id=b.dataset.m;LT.t=now}});
 load();render();
+window.addEventListener("nearly-page",function(e){var p=e.detail,m={chat:"chat",messages:"chat",notes:"chat",games:"play",mood:"mood"};tab=m[p]||"home";G=null;render()});
+try{if(NW.takePendingPage)NW.takePendingPage().then(function(p){if(p)window.dispatchEvent(new CustomEvent("nearly-page",{detail:p}))})}catch(e){}
 document.getElementById("app").addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(b)act(b.dataset.a,b.dataset.v)});
 document.getElementById("app").addEventListener("change",function(e){var k=e.target.dataset.s;if(k){S[k]=e.target.value;save();render()}});
 setInterval(function(){if(tab==="home"||tab==="us"){var t=document.activeElement;if(!t||t.tagName==="BODY")render()}},30000);

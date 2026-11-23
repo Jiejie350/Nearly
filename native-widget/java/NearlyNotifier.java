@@ -61,7 +61,7 @@ final class NearlyNotifier {
                 NearlyStore.sp(c).edit().putLong("seenNote", top).apply();
                 if (best != null) {
                     boolean priv = best.optString("kind").equals("private");
-                    show(c, 6, "💌 " + pn, priv ? "sent you a private message" : NearlyUtil.clip(best.optString("text"), 120));
+                    show(c, 6, "💌 " + pn, priv ? "sent you a private message" : best.optString("type").equals("draw") ? "✍️ sent you a handwritten message" : NearlyUtil.clip(best.optString("text"), 120));
                 }
             }
         }

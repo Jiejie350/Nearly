@@ -7,7 +7,7 @@
     <string name="nearly_label_location">Nearly · Location</string>
     <string name="nearly_label_mood">Nearly · Mood</string>
     <string name="nearly_label_countdown">Nearly · Countdown</string>
-    <string name="nearly_label_notes">Nearly · Notes</string>
+    <string name="nearly_label_msg">Nearly · Messages</string>
     <string name="nearly_label_interactive">Nearly · Quick actions</string>
     <string name="nearly_label_game">Nearly · Couple games</string>
     <string name="nearly_label_candle">Nearly · Candle</string>
@@ -19,7 +19,7 @@
     <string name="nearly_desc_location">Shared location, distance and travel estimate with privacy controls.</string>
     <string name="nearly_desc_mood">Pick your mood, see theirs, mood history and calendar.</string>
     <string name="nearly_desc_countdown">Anniversary, birthday, meetup, vacation or any custom date.</string>
-    <string name="nearly_desc_notes">Love notes, sticky notes, private messages, reminders and handwritten notes.</string>
+    <string name="nearly_desc_msg">Text or handwritten messages between you two. Checks for new ones every 10 minutes.</string>
     <string name="nearly_desc_interactive">Hearts, kisses, hugs, mood, notes and tasks from your home screen.</string>
     <string name="nearly_desc_game">Tic-Tac-Toe, daily question, never have I ever and challenges.</string>
     <string name="nearly_desc_candle">Light a candle together and see when you\'re both connected.</string>

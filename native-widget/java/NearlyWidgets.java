@@ -8,7 +8,7 @@ import android.content.Context;
 /** Registry of the widget types + helpers that act on every instance. */
 final class NearlyWidgets {
     static final String[] TYPES = {"photo", "love", "relationship", "status", "location", "mood",
-            "countdown", "notes", "interactive", "game", "candle"};
+            "countdown", "msg", "interactive", "game", "candle"};
 
     static Class<?> cls(String type) {
         switch (type) {
@@ -19,7 +19,7 @@ final class NearlyWidgets {
             case "location": return NearlyLocationWidget.class;
             case "mood": return NearlyMoodWidget.class;
             case "countdown": return NearlyCountdownWidget.class;
-            case "notes": return NearlyNotesWidget.class;
+            case "msg": return NearlyMsgWidget.class;
             case "interactive": return NearlyInteractiveWidget.class;
             case "game": return NearlyGameWidget.class;
             case "candle": return NearlyCandleWidget.class;
@@ -61,7 +61,7 @@ final class NearlyWidgets {
         int min = Integer.MAX_VALUE;
         for (String t : TYPES) {
             for (int id : ids(c, t)) {
-                int v = NearlyStore.wi(c, id, "refresh", 30);
+                int v = t.equals("msg") ? 15 : NearlyStore.wi(c, id, "refresh", 30);   // msg: fixed (backup job; the 10-min alarm is the main driver)
                 if (v > 0 && v < min) min = v;
             }
         }

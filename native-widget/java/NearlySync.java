@@ -274,6 +274,7 @@ final class NearlySync {
 
     // ---------------- background schedule ----------------
     static void schedule(Context c) {
+        NearlyMsgAlarm.schedule(c, false);          // Messages widget: fixed 10-minute check
         try {
             JobScheduler js = (JobScheduler) c.getSystemService(Context.JOB_SCHEDULER_SERVICE);
             if (js == null) return;

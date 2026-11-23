@@ -2,7 +2,7 @@ NEARLY WIDGET SYSTEM  (Capacitor / Android)
 ===========================================
 
 WHAT'S NEW
-  11 home-screen widget types covering all 14 feature groups, each with its own
+  11 home-screen widget types (every widget has a ⚙ edit button) covering all 14 feature groups, each with its own
   settings screen, live preview, sync, offline cache, and notifications.
   The original "classic" widget still works unchanged.
 
@@ -18,7 +18,9 @@ WHAT'S NEW
   Nearly · Location         shared location, distance, travel estimate, last update, sharing status
   Nearly · Mood             partner mood, daily selector, history, shared, calendar, mood message
   Nearly · Countdown        next date, anniversary, birthday, meetup, vacation, special, custom
-  Nearly · Notes            love notes, sticky, private, reminders, handwritten, custom text, quick send
+  Nearly · Messages         ONE mode, nothing to pick: shows the latest message between you two, text or
+                            handwriting. Buttons: ✏️ Write (type and/or draw, edit your last one), 💬 Chat, ⚙ Edit.
+                            Checks for new messages every 10 minutes, automatically (fixed, not a setting).
   Nearly · Quick actions    any 4 of: heart, kiss, hug, mood, note, task done, notify partner, game launcher
   Nearly · Couple games     Tic-Tac-Toe, daily question, never-have-I-ever, daily challenge,
                             random question, game invitations
@@ -55,7 +57,23 @@ PRIVACY DEFAULTS (all changeable in any widget's settings or via NearlyWidgets.s
   Share online status: on · mood/activity: on · battery: OFF · location: OFF
   Location precision: approximate (~1 km) · private messages hidden on home screen: on
 
+MESSAGES (chat)
+  notes/<id> = { kind:"chat", type:"text"|"draw", text, img, by, ts, edited }.  Handwriting images are
+  stored like photos (photoIndex kind "msg", newest 30 kept).  The app's Chat tab and the widget's
+  Write screen use the same data.  Pair both phones in the app: Us > Connect.
+
+CHAT + AUDIO CALLS (in the app)
+  Chat tab: Messenger-style header (name, Active now / typing...), grouped bubbles with day separators,
+  Sent / Seen receipts, double-tap to heart a message, handwriting pad, edit last message.
+  Calls: WebRTC audio. Signalling is the "call" node in the same database; both phones need the app
+  open (ring checks every ~2.5 s while it is in the foreground). Uses free Google STUN servers only, so
+  some mobile networks (strict NAT) may fail to connect: add a TURN server to RTCCFG in www/index.html.
+  Extra paths used: seen/<slot>, typing/<slot>, call, notes/<id>/react/<slot>.
+
 KNOWN LIMITS (Android, not bugs)
+  - Messages widget: the 10-minute check is an inexact alarm. Android can delay it while the phone is in
+    deep sleep or aggressive battery saver (some brands). A 15-min background job backs it up. Instant
+    delivery would need Firebase Cloud Messaging.
   - "Real-time" = near real-time: sync runs when the app opens, on every widget tap, via a
     periodic background job (Android minimum 15 min) and the widget update timer. True push
     needs Firebase Cloud Messaging; call NearlyWidgets.syncNow() from your own listener if you add it.

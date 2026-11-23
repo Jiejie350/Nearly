@@ -25,7 +25,7 @@ final class NearlyWidgetContent {
             case "location": return location(e);
             case "mood": return mood(e);
             case "countdown": return countdown(e);
-            case "notes": return notes(e);
+            case "msg": return msg(e);
             case "interactive": return interactive(e);
             case "game": return game(e);
             case "candle": return candle(e);
@@ -545,102 +545,36 @@ final class NearlyWidgetContent {
         return u;
     }
 
-    // ================================================================= 8. NOTES & MESSAGES
-    private static NearlyRenderer.Ui notes(NearlyRenderer.Env e) {
+    // ================================================================= 8. MESSAGES (text or handwriting, no modes)
+    private static NearlyRenderer.Ui msg(NearlyRenderer.Env e) {
         NearlyRenderer.Ui u = new NearlyRenderer.Ui();
-        u.page = "notes";
+        u.layout = "msg";
+        u.page = "chat";
         NearlyData d = e.d;
-        String mode = w(e, "mode", "love");
         String pn = d.pName();
-        boolean maskPrivate = NearlyStore.priv(e.c, "maskPrivate", true);
-
-        switch (mode) {
-            case "sticky": {
-                List<JSONObject> l = d.notes("sticky");
-                u.label = "Sticky note";
-                if (l.isEmpty()) { u.big = "Stick a note here ✏️"; u.bigLines = 3; e.st.applySticky(0xFFFFF1A8); }
-                else {
-                    JSONObject n = l.get(0);
-                    e.st.applySticky(NearlyUtil.color(n.optString("color", ""), 0xFFFFF1A8));
-                    u.big = n.optString("text");
-                    u.bigLines = 5;
-                    u.sub = "— " + d.nameOf(n.optString("by")) + " · " + NearlyUtil.ago(n.optLong("ts"));
-                }
-                u.acts.add(a("✏️", "note", "sticky"));
-                break;
+        List<JSONObject> l = d.chat();
+        boolean queued = NearlyStore.queue(e.c).length() > 0;
+        if (l.isEmpty()) {
+            u.label = "Messages";
+            u.big = NearlyStore.paired(e.c) ? "Say hi to " + pn + " 💌" : "Pair in the Nearly app to start chatting 💌";
+            u.sub = "Tap ✏️ to write or draw";
+        } else {
+            JSONObject n = l.get(0);
+            boolean mine = n.optString("by").equals(d.slot);
+            u.label = mine ? "You · to " + pn : pn;
+            String when = NearlyUtil.ago(n.optLong("ts")) + (mine && queued ? " · ⏳ sending" : mine ? " · sent ✓" : "");
+            if (n.optString("type").equals("draw")) {
+                u.art = NearlyPhotos.load(e.c, n.optString("img"), e.bw, e.bh);
+                if (u.art == null) u.big = "✍️ Handwritten message";
+            } else {
+                u.big = n.optString("text") + (n.optBoolean("edited", false) ? "  (edited)" : "");
+                u.bigLines = 4;
             }
-            case "private": {
-                List<JSONObject> l = d.notes("private");
-                JSONObject n = null;
-                for (JSONObject j : l) if (j.optString("to", "").equals(d.slot) || j.optString("by").equals(d.slot)) { n = j; break; }
-                u.label = "Private message";
-                if (n == null) { u.big = "No private messages"; u.bigLines = 3; }
-                else if (maskPrivate && !n.optString("by").equals(d.slot)) {
-                    u.big = "🔒 Private message from " + pn;
-                    u.bigLines = 3;
-                    u.sub = "Tap to open in the app · " + NearlyUtil.ago(n.optLong("ts"));
-                } else {
-                    u.big = n.optString("text");
-                    u.bigLines = 4;
-                    u.sub = "— " + d.nameOf(n.optString("by")) + " · " + NearlyUtil.ago(n.optLong("ts"));
-                }
-                u.acts.add(a("✏️", "note", "private"));
-                break;
-            }
-            case "reminders": {
-                List<JSONObject> l = d.notes("reminder");
-                ArrayList<JSONObject> open = new ArrayList<>();
-                for (JSONObject j : l) if (!j.optBoolean("done", false)) open.add(j);
-                u.label = "Shared reminders";
-                u.big = open.isEmpty() ? "All done 🎉" : open.size() + (open.size() == 1 ? " reminder" : " reminders");
-                u.sub = open.isEmpty() ? "" : "⏰ " + NearlyUtil.clip(open.get(0).optString("text"), 60);
-                StringBuilder b = new StringBuilder();
-                for (int i = 1; i < Math.min(open.size(), 6); i++) b.append("⏰ ").append(NearlyUtil.clip(open.get(i).optString("text"), 60)).append("\n");
-                u.extra = b.toString().trim();
-                if (!open.isEmpty()) u.acts.add(a("✅", "rdone", ""));
-                u.acts.add(a("✏️", "note", "reminder"));
-                break;
-            }
-            case "custom": {
-                u.label = "Message";
-                String t = w(e, "customText", "");
-                u.big = t.isEmpty() ? "Write your message in the widget settings ✏️" : t;
-                u.bigLines = 5;
-                break;
-            }
-            case "handwritten": {
-                u.layout = "photo";
-                List<JSONObject> l = NearlyPhotos.pick(d, "hw", e.c, "");
-                Bitmap hw = l.isEmpty() ? null : NearlyPhotos.load(e.c, l.get(0).optString("id"), e.bw, e.bh);
-                u.art = NearlyArt.handwritten(e.st, hw, e.bw, e.bh);
-                break;
-            }
-            case "quick": {
-                List<JSONObject> l = d.notes(null);
-                u.label = "Quick note";
-                u.big = "✏️ Write a note";
-                u.sub = l.isEmpty() ? "to " + pn : "Last: " + NearlyUtil.clip(l.get(0).optString("text"), 50);
-                u.acts.add(a("💌", "note", "love"));
-                u.acts.add(a("📝", "note", "sticky"));
-                u.acts.add(a("🔒", "note", "private"));
-                u.acts.add(a("⏰", "note", "reminder"));
-                break;
-            }
-            default: { // love
-                List<JSONObject> l = d.notes("love");
-                u.label = "Love notes";
-                if (l.isEmpty()) { u.big = "No notes yet — write the first one 💌"; u.bigLines = 3; }
-                else {
-                    JSONObject n = l.get(0);
-                    u.big = n.optString("text");
-                    u.bigLines = 4;
-                    u.sub = "— " + d.nameOf(n.optString("by")) + " · " + NearlyUtil.ago(n.optLong("ts"));
-                }
-                u.acts.add(a("✏️", "note", "love"));
-                u.acts.add(a("💗", "heart", ""));
-                break;
-            }
+            u.sub = when;
         }
+        u.acts.add(a("✏️ Write", "compose", ""));
+        u.acts.add(a("💬", "open", "chat"));
+        u.acts.add(a("⚙", "config", ""));
         return u;
     }
 

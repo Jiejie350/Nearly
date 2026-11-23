@@ -86,7 +86,11 @@ final class NearlyRenderer {
             case "photo": rv = photo(e, ui); break;
             case "ttt": rv = ttt(e, ui); break;
             case "candle": rv = candle(e, ui); break;
-            default: rv = card(e, ui); break;
+            case "msg": rv = msg(e, ui); break;
+            default:
+                if (ui.acts.size() < 4) ui.acts.add(new Act("⚙", "config", ""));   // every widget gets an edit button
+                rv = card(e, ui);
+                break;
         }
         rv.setOnClickPendingIntent(R.id.w_root, openPi(c, id, ui.page));
         return rv;
@@ -98,6 +102,47 @@ final class NearlyRenderer {
         rv.setViewVisibility(R.id.w_actions, View.GONE);
         rv.setOnClickPendingIntent(R.id.w_root, openPi(c, 0, "home"));
         return rv;
+    }
+
+    // ---------------------------------------------------------------- custom button icons
+    /** Vector icon for a button, or 0 to keep its text/emoji (mood faces, game pieces...). */
+    static int iconFor(Act a) {
+        switch (a.action) {
+            case "heart": return R.drawable.ic_nly_heart;
+            case "kiss": return R.drawable.ic_nly_kiss;
+            case "hug": return R.drawable.ic_nly_hug;
+            case "note":
+            case "compose": return R.drawable.ic_nly_write;
+            case "answer": return R.drawable.ic_nly_chat;
+            case "open": return a.arg.equals("chat") ? R.drawable.ic_nly_chat : 0;
+            case "config": return R.drawable.ic_nly_gear;
+            case "notify": return R.drawable.ic_nly_bell;
+            case "game": return R.drawable.ic_nly_game;
+            case "task":
+            case "chdone":
+            case "inviteyes":
+            case "rdone": return R.drawable.ic_nly_check;
+            case "refresh": return R.drawable.ic_nly_refresh;
+            case "rnd":
+            case "nhienext": return R.drawable.ic_nly_shuffle;
+            case "moodpick": return a.label.equals("⋯") ? 0 : R.drawable.ic_nly_mood;
+            default: return 0;
+        }
+    }
+
+    /** Puts the icon (and optional text, e.g. "Write") on a button. */
+    static void setBtn(RemoteViews rv, int viewId, Act a, NearlyStyle st, float sp) {
+        int ic = iconFor(a);
+        if (ic != 0) {
+            String t = a.label.replaceAll("[^\\p{L}\\p{N} ]", "").trim();   // keep words like "Write", drop emoji
+            rv.setTextViewText(viewId, t.isEmpty() ? "" : st.span(" " + t, false));
+            rv.setTextViewCompoundDrawables(viewId, ic, 0, 0, 0);
+        } else {
+            rv.setTextViewText(viewId, st.span(a.label, false));
+            rv.setTextViewCompoundDrawables(viewId, 0, 0, 0, 0);
+        }
+        rv.setTextColor(viewId, st.ink);
+        rv.setTextViewTextSize(viewId, TypedValue.COMPLEX_UNIT_SP, sp);
     }
 
     // ---------------------------------------------------------------- layouts
@@ -189,9 +234,7 @@ final class NearlyRenderer {
             if (hasActs && i < ui.acts.size()) {
                 Act a = ui.acts.get(i);
                 rv.setViewVisibility(btn[i], View.VISIBLE);
-                rv.setTextViewText(btn[i], st.span(a.label, false));
-                rv.setTextColor(btn[i], st.ink);
-                rv.setTextViewTextSize(btn[i], TypedValue.COMPLEX_UNIT_SP, s[5] * Math.min(1.2f, sc));
+                setBtn(rv, btn[i], a, st, s[5] * Math.min(1.2f, sc));
                 rv.setOnClickPendingIntent(btn[i], actPi(e.c, e.id, i, a));
             } else rv.setViewVisibility(btn[i], View.GONE);
         }
@@ -206,6 +249,47 @@ final class NearlyRenderer {
             rv.setTextColor(R.id.w_next, e.st.ink);
             rv.setOnClickPendingIntent(R.id.w_next, actPi(e.c, e.id, 0, new Act("›", "next", "")));
         } else rv.setViewVisibility(R.id.w_next, View.GONE);
+        return rv;
+    }
+
+    private static RemoteViews msg(Env e, Ui ui) {
+        NearlyStyle st = e.st;
+        Context c = e.c;
+        RemoteViews rv = new RemoteViews(c.getPackageName(), R.layout.nly_w_msg);
+        rv.setImageViewBitmap(R.id.w_bg, st.bg(e.bw, e.bh));
+        float[] s = sizes(e.sz);
+        float sc = st.scale;
+        if (st.showLabel && !ui.label.isEmpty()) {
+            rv.setViewVisibility(R.id.w_label, View.VISIBLE);
+            rv.setTextViewText(R.id.w_label, st.span(ui.label.toUpperCase(), true));
+            rv.setTextColor(R.id.w_label, st.acc);
+            rv.setTextViewTextSize(R.id.w_label, TypedValue.COMPLEX_UNIT_SP, s[0] * sc);
+        } else rv.setViewVisibility(R.id.w_label, View.GONE);
+
+        if (ui.art != null) {                       // handwriting: shown on a paper-coloured card
+            rv.setViewVisibility(R.id.w_big, View.GONE);
+            rv.setViewVisibility(R.id.w_hw, View.VISIBLE);
+            rv.setImageViewBitmap(R.id.w_hw, ui.art);
+        } else {
+            rv.setViewVisibility(R.id.w_hw, View.GONE);
+            rv.setViewVisibility(R.id.w_big, View.VISIBLE);
+            int len = ui.big.length();
+            float f = len > 90 ? 0.72f : len > 60 ? 0.82f : len > 36 ? 0.92f : 1f;
+            rv.setTextViewText(R.id.w_big, st.span(ui.big, true));
+            rv.setTextColor(R.id.w_big, st.ink);
+            rv.setTextViewTextSize(R.id.w_big, TypedValue.COMPLEX_UNIT_SP, s[2] * f * sc);
+        }
+        rv.setTextViewText(R.id.w_sub, st.span(ui.sub, false));
+        rv.setTextColor(R.id.w_sub, st.mu);
+        rv.setTextViewTextSize(R.id.w_sub, TypedValue.COMPLEX_UNIT_SP, s[3] * 0.85f * sc);
+
+        int[] btn = {R.id.w_b1, R.id.w_b2, R.id.w_b3};
+        rv.setViewVisibility(R.id.w_actions, View.VISIBLE);   // the edit button must always be reachable
+        for (int i = 0; i < 3; i++) {
+            Act a = ui.acts.get(i);
+            setBtn(rv, btn[i], a, st, s[5] * 0.85f * Math.min(1.2f, sc));
+            rv.setOnClickPendingIntent(btn[i], actPi(c, e.id, i, a));
+        }
         return rv;
     }
 
@@ -290,6 +374,20 @@ final class NearlyRenderer {
                 i.setData(data);
                 i.putExtra("mode", a.action.equals("answer") ? "answer" : "note");
                 i.putExtra(a.action.equals("answer") ? "q" : "kind", a.arg);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                return PendingIntent.getActivity(c, rc, i, flags);
+            }
+            case "compose": {
+                Intent i = new Intent(c, MessageComposeActivity.class);
+                i.setData(data);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                return PendingIntent.getActivity(c, rc, i, flags);
+            }
+            case "config": {
+                Intent i = new Intent(android.appwidget.AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
+                i.setClass(c, NearlyConfigActivity.class);
+                i.setData(data);
+                i.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID, id);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 return PendingIntent.getActivity(c, rc, i, flags);
             }

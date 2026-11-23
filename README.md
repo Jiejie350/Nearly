@@ -17,11 +17,12 @@ A cozy little space for two. Capacitor Android app + home-screen widgets.
 
 ## Layout
 - `www/` the app (index.html + nearly-widgets.js)
-- `native-widget/` Java + XML for the 11 widget types (see its README.txt)
+- `native-widget/` Java + XML for the 11 widget types, incl. the all-in-one Messages widget (see its README.txt)
 - `scripts/apply-widgets.py` copies the widgets into the generated android project
 - Package ID: `com.benjamin.nearly`
 
 ## Notes
 - The widget Java has not been compiled yet. If the first build fails, send the error log.
+- Pair in the app (Us > Connect) with the shared database link + code; the Chat tab and Messages widget need it.
 - Two-phone syncing (partner's mood, photos, candle...) needs a small database URL passed to
   `NearlyWidgets.configure({url, code, slot, pslot})`. Not set up yet; see native-widget/README.txt.
